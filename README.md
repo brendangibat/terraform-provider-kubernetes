@@ -1,5 +1,18 @@
 # terraform-provider-kubernetes
 
+Currently supports pushing serialized JSON to kubernetes of :
+ * Replication Controllers
+ * Services
+ * Pods
+
+Operations supported:
+ * Create
+ * Read
+ * Update
+ * Delete
+
+TODO: Pull inner objects of kubernetes definitions down in as terraform resource.
+
 Example usage:
 
 provider "kubernetes" {
