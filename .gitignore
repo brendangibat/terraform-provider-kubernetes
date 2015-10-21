@@ -26,3 +26,4 @@ main
 bin/*
 *.bak
 terraform-provider-kubernetes
+vendor/
