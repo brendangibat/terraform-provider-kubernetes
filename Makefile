@@ -26,6 +26,10 @@ restore-deps :
 build :
 	$(GO_BUILD) -o bin/terraform-provider-kubernetes .
 
+.PHONY: install
+install : restore-deps build
+	cp terraform-provider-kubernetes $GOPATH/bin/terraform-provider-kubernetes
+
 .PHONY: test
 test : prepare-test
 	go test -v $(TESTDIRS) | tee go.out
