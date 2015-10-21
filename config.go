@@ -3,7 +3,7 @@ package main
 import (
 	"errors"
 	"log"
-	"k8s.io/kubernetes/pkg/client"
+	"k8s.io/kubernetes/pkg/client/unversioned"
 )
 
 const DefaultVersion = "v1"
