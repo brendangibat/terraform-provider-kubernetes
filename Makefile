@@ -24,7 +24,7 @@ restore-deps :
 
 .PHONY: build
 build :
-	$(GO_BUILD) -o bin/server .
+	$(GO_BUILD) -o bin/terraform-provider-kubernetes .
 
 .PHONY: test
 test : prepare-test

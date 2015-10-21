@@ -1,4 +1,4 @@
-package kubernetes
+package main
 
 import (
 	"log"
@@ -19,13 +19,11 @@ func resourceKubernetesService() *schema.Resource {
 			"name": &schema.Schema{
 				Type:     schema.TypeString,
 				Required:  true,
-				ForceNew: true,
 			},
 
 			"config": &schema.Schema{
 				Type:     schema.TypeString,
 				Required:  true,
-				ForceNew: true,
 			},
 		},
 	}

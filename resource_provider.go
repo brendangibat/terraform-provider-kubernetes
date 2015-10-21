@@ -1,4 +1,4 @@
-package kubernetes
+package main
 
 import (
 	"log"
@@ -14,7 +14,7 @@ func Provider() terraform.ResourceProvider {
 		Schema: map[string]*schema.Schema{
 			"endpoint": &schema.Schema{
 				Type:     schema.TypeString,
-				Optional: true,
+				Optional: false,
 			},
 
 			"user": &schema.Schema{
