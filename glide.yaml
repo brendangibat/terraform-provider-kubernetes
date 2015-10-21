@@ -2,6 +2,8 @@ package: main
 import:
   - package: golang.org/x/net
     ref:     42ad50856d0131521b13983610e75c16da945ae3
+    repo: https://github.com/golang/net.git
+    vcs: git
     subpackages:
       - /context
   - package: github.com/google/gofuzz
@@ -22,6 +24,8 @@ import:
       - /spew
   - package: golang.org/x/crypto
     ref:     c8b9e6388ef638d5a8a9d865c634befdc46a6784
+    repo: https://github.com/golang/crypto.git
+    vcs: git
     subpackages:
       - /ssh
   - package: github.com/matttproud/golang_protobuf_extensions
