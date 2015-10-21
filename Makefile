@@ -28,7 +28,7 @@ build :
 
 .PHONY: install
 install : restore-deps build
-	cp terraform-provider-kubernetes $(GOPATH)/bin/terraform-provider-kubernetes
+	cp terraform-provider-kubernetes $(GOPATH)/bin/
 
 .PHONY: test
 test : prepare-test
