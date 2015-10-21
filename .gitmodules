@@ -50,7 +50,7 @@
 	path= vendor/golang.org/x/net
 	url=https://github.com/golang/net.git
 [submodule "kubernetes"]
-	path= vendor/k8s.io/kubernetes
+	path = vendor/k8s.io/bs
 	url=git://k8s.io/kubernetes.git
 [submodule "exp"]
 	path= vendor/speter.net/go/exp/math/dec/inf
