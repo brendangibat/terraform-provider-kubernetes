@@ -45,7 +45,7 @@ import:
   - package: k8s.io/kubernetes
     ref:     0496a2f571965ee9b1613c1a70a03efe9d083597
   - package: bitbucket.org/ww/goautoneg
-    ref:     75cd24fc2f2c
+    ref:     75cd24fc2f2c2a2088577d12123ddee5f54e0675
     repo:    https://bitbucket.org/ww/goautoneg
     vcs:     hg
   - package: github.com/prometheus/client_model
