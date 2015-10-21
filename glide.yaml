@@ -1,72 +1,72 @@
 package: main
 import:
-  - package: github.com/matttproud/golang_protobuf_extensions
-    ref:     d0c3fe89de86839aecf2e0579c40ba3bb336a453
-    subpackages:
-      - /pbutil
-  - package: github.com/prometheus/client_model
-    ref:     fa8ad6fec33561be4280a8f0514318c79d7f6cb6
-    subpackages:
-      - /go
-  - package: github.com/juju/ratelimit
-    ref:     772f5c38e468398c4511514f4f6aa9a4185bc0a0
   - package: golang.org/x/net
     ref:     42ad50856d0131521b13983610e75c16da945ae3
     subpackages:
       - /context
   - package: github.com/google/gofuzz
     ref:     e4af62d086c303f2bed467b227fc0a034b218916
-  - package: github.com/ghodss/yaml
-    ref:     73d445a93680fa1a78ae23a5839bad48f32ba1ee
   - package: code.google.com/p/go-uuid
     ref:     35bc42037350
     subpackages:
       - /uuid
-  - package: github.com/beorn7/perks
-    ref:     b965b613227fddccbfffe13eae360ed3fa822f8d
-    subpackages:
-      - /quantile
-  - package: github.com/ugorji/go
-    ref:     8a2a3a8c488c3ebd98f422a965260278267a0551
-    subpackages:
-      - /codec
   - package: github.com/prometheus/procfs
     ref:     454a56f35412459b5e684fd5ec0f9211b94f002a
   - package: github.com/google/cadvisor
     ref:     ccd829266b40207a8e41aee84214229a19300faf
     subpackages:
       - /info/v1
-  - package: github.com/spf13/pflag
-    ref:     08b1a584251b5b62f458943640fc8ebd4d50aaa5
   - package: github.com/davecgh/go-spew
     ref:     2df174808ee097f90d259e432cc04442cf60be21
     subpackages:
       - /spew
-  - package: speter.net/go/exp/math/dec/inf
-    ref:     42ca6cd68aa922bc3f32f1e056e61b65945d9ad7
-    repo:    https://code.google.com/p/go-decimal-inf.exp
-    vcs:     git
-  - package: k8s.io/kubernetes
-    ref:     0496a2f571965ee9b1613c1a70a03efe9d083597
-  - package: github.com/golang/protobuf
-    ref:     9ebc6c4ed925b1323a0b11cea09e527cdc4e557c
-    subpackages:
-      - /proto
-  - package: github.com/prometheus/client_golang
-    ref:     e51041b3fa41cece0dca035740ba6411905be473
-    subpackages:
-      - /prometheus
-  - package: bitbucket.org/ww/goautoneg
-    ref:     75cd24fc2f2c
-    repo:    https://bitbucket.org/ww/goautoneg
-    vcs:     hg
   - package: golang.org/x/crypto
     ref:     c8b9e6388ef638d5a8a9d865c634befdc46a6784
     subpackages:
       - /ssh
+  - package: github.com/matttproud/golang_protobuf_extensions
+    ref:     d0c3fe89de86839aecf2e0579c40ba3bb336a453
+    subpackages:
+      - /pbutil
+  - package: github.com/golang/glog
+    ref:     fca8c8854093a154ff1eb580aae10276ad6b1b5f
+  - package: github.com/juju/ratelimit
+    ref:     772f5c38e468398c4511514f4f6aa9a4185bc0a0
+  - package: github.com/ghodss/yaml
+    ref:     73d445a93680fa1a78ae23a5839bad48f32ba1ee
+  - package: github.com/beorn7/perks
+    ref:     b965b613227fddccbfffe13eae360ed3fa822f8d
+    subpackages:
+      - /quantile
+  - package: k8s.io/kubernetes
+    ref:     0496a2f571965ee9b1613c1a70a03efe9d083597
+  - package: bitbucket.org/ww/goautoneg
+    ref:     75cd24fc2f2c
+    repo:    https://bitbucket.org/ww/goautoneg
+    vcs:     hg
+  - package: github.com/prometheus/client_model
+    ref:     fa8ad6fec33561be4280a8f0514318c79d7f6cb6
+    subpackages:
+      - /go
+  - package: github.com/prometheus/client_golang
+    ref:     e51041b3fa41cece0dca035740ba6411905be473
+    subpackages:
+      - /prometheus
   - package: github.com/prometheus/common
     ref:     ffe929a3f4c4faeaa10f2b9535c2b1be3ad15650
     subpackages:
       - /expfmt
-  - package: github.com/golang/glog
-    ref:     fca8c8854093a154ff1eb580aae10276ad6b1b5f
+  - package: github.com/spf13/pflag
+    ref:     08b1a584251b5b62f458943640fc8ebd4d50aaa5
+  - package: speter.net/go/exp/math/dec/inf
+    ref:     42ca6cd68aa922bc3f32f1e056e61b65945d9ad7
+    repo:    https://code.google.com/p/go-decimal-inf.exp
+    vcs:     git
+  - package: github.com/golang/protobuf
+    ref:     9ebc6c4ed925b1323a0b11cea09e527cdc4e557c
+    subpackages:
+      - /proto
+  - package: github.com/ugorji/go
+    ref:     8a2a3a8c488c3ebd98f422a965260278267a0551
+    subpackages:
+      - /codec

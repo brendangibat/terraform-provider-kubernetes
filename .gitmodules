@@ -1,0 +1,57 @@
+[submodule "beorn7"]
+	path= vendor/github.com/beorn7/perks
+	url=git://github.com/beorn7.git
+[submodule "davecgh"]
+	path= vendor/github.com/davecgh/go-spew
+	url=git://github.com/davecgh.git
+[submodule "ghodss"]
+	path= vendor/github.com/ghodss/yaml
+	url=git://github.com/ghodss.git
+[submodule "golang"]
+	path= vendor/github.com/golang/glog
+	url=git://github.com/golang.git
+[submodule "golang"]
+	path= vendor/github.com/golang/protobuf
+	url=git://github.com/golang.git
+[submodule "google"]
+	path= vendor/github.com/google/cadvisor
+	url=git://github.com/google.git
+[submodule "google"]
+	path= vendor/github.com/google/gofuzz
+	url=git://github.com/google.git
+[submodule "juju"]
+	path= vendor/github.com/juju/ratelimit
+	url=git://github.com/juju.git
+[submodule "matttproud"]
+	path= vendor/github.com/matttproud/golang_protobuf_extensions
+	url=git://github.com/matttproud.git
+[submodule "prometheus"]
+	path= vendor/github.com/prometheus/client_golang
+	url=git://github.com/prometheus.git
+[submodule "prometheus"]
+	path= vendor/github.com/prometheus/client_model
+	url=git://github.com/prometheus.git
+[submodule "prometheus"]
+	path= vendor/github.com/prometheus/common
+	url=git://github.com/prometheus.git
+[submodule "prometheus"]
+	path= vendor/github.com/prometheus/procfs
+	url=git://github.com/prometheus.git
+[submodule "spf13"]
+	path= vendor/github.com/spf13/pflag
+	url=git://github.com/spf13.git
+[submodule "ugorji"]
+	path= vendor/github.com/ugorji/go
+	url=git://github.com/ugorji.git
+[submodule "x"]
+	path= vendor/golang.org/x/crypto
+	url=git://golang.org/x.git
+[submodule "x"]
+	path= vendor/golang.org/x/net
+	url=git://golang.org/x.git
+[submodule "kubernetes"]
+	path= vendor/k8s.io/kubernetes
+	url=git://k8s.io/kubernetes.git
+[submodule "go"]
+	path= vendor/speter.net/go/exp/math/dec/inf
+	url=git://speter.net/go.git
