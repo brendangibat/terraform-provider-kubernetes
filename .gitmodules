@@ -45,10 +45,10 @@
 	url=git://github.com/ugorji/go.git
 [submodule "crypto"]
 	path= vendor/golang.org/x/crypto
-	url=git@github.com:golang/crypto.git
+	url=https://github.com/golang/crypto.git
 [submodule "net"]
 	path= vendor/golang.org/x/net
-	url=git@github.com:golang/net.git
+	url=https://github.com/golang/net.git
 [submodule "kubernetes"]
 	path= vendor/k8s.io/kubernetes
 	url=git://k8s.io/kubernetes.git
