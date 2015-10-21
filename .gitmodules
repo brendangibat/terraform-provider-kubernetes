@@ -52,3 +52,6 @@
 [submodule "exp"]
 	path= vendor/speter.net/go/exp/math/dec/inf
 	url=git://speter.net/go/exp/math/dec/inf.git
+[submodule "kubernetes"]
+    path= vendor/k8s.io/kubernetes
+    url=https://github.com/kubernetes/kubernetes.git
