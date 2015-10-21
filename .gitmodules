@@ -51,7 +51,7 @@
 	url=https://github.com/golang/net.git
 [submodule "exp"]
 	path=vendor/speter.net/go/exp/math/dec/inf
-	url=git://speter.net/go/exp/math/dec/inf.git
+	url=https://code.google.com/p/go-decimal-inf.exp
 [submodule "kubernetes"]
     path=vendor/k8s.io/kubernetes
     url=https://github.com/kubernetes/kubernetes.git
