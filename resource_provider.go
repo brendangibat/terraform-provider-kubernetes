@@ -14,7 +14,7 @@ func Provider() terraform.ResourceProvider {
 		Schema: map[string]*schema.Schema{
 			"endpoint": &schema.Schema{
 				Type:     schema.TypeString,
-				Optional: false,
+				Required: true,
 			},
 
 			"user": &schema.Schema{
