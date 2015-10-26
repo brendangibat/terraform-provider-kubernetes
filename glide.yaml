@@ -1,18 +1,68 @@
 package: main
 import:
+  - package: github.com/mitchellh/go-homedir
+    ref:     d682a8f0cf139663a984ff12528da460ca963de9
+  - package: github.com/prometheus/client_golang
+    ref:     e51041b3fa41cece0dca035740ba6411905be473
+    repo:    http://github.com/prometheus/client_golang
+    vcs:     git
+    subpackages:
+      - /prometheus
+  - package: github.com/prometheus/common
+    ref:     ffe929a3f4c4faeaa10f2b9535c2b1be3ad15650
+    repo:    http://github.com/prometheus/common
+    vcs:     git
+    subpackages:
+      - /expfmt
+  - package: github.com/prometheus/client_model
+    ref:     fa8ad6fec33561be4280a8f0514318c79d7f6cb6
+    repo:    http://github.com/prometheus/client_model
+    vcs:     git
+    subpackages:
+      - /go
+  - package: github.com/hashicorp/terraform
+    ref:     932f0ddbeb598531f96ab2b7c29c87e6bb46cdef
+  - package: code.google.com/p/goprotobuf
+    ref:     9ebc6c4ed925b1323a0b11cea09e527cdc4e557c
+    repo:    http://github.com/golang/protobuf
+    vcs:     git
+    subpackages:
+      - /proto
+  - package: github.com/ghodss/yaml
+    ref:     73d445a93680fa1a78ae23a5839bad48f32ba1ee
+    repo:    http://github.com/ghodss/yaml
+    vcs:     git
+  - package: k8s.io/kubernetes
+    ref:     f10e6d13a6a5baacc71f82320c2c5a100e9b5111
+    repo:    https://github.com/kubernetes/kubernetes.git
+    vcs:     git
+  - package: github.com/hashicorp/errwrap
+    ref:     7554cd9344cec97297fa6649b055a8c98c2a1e55
+  - package: github.com/matttproud/golang_protobuf_extensions
+    ref:     d0c3fe89de86839aecf2e0579c40ba3bb336a453
+    repo:    http://github.com/matttproud/golang_protobuf_extensions
+    vcs:     git
+    subpackages:
+      - /pbutil
+  - package: bitbucket.org/ww/goautoneg
+    ref:     75cd24fc2f2c
+    repo:    https://bitbucket.org/ww/goautoneg
+    vcs:     hg
   - package: github.com/golang/protobuf
     ref:     9ebc6c4ed925b1323a0b11cea09e527cdc4e557c
     repo:    http://github.com/golang/protobuf
     vcs:     git
     subpackages:
       - /proto
+  - package: github.com/google/gofuzz
+    ref:     e4af62d086c303f2bed467b227fc0a034b218916
+    repo:    http://github.com/google/gofuzz
+    vcs:     git
+  - package: github.com/hashicorp/go-multierror
+    ref:     d30f09973e19c1dfcd120b2d9c4f168e68d6b5d5
   - package: github.com/juju/ratelimit
     ref:     772f5c38e468398c4511514f4f6aa9a4185bc0a0
     repo:    http://github.com/juju/ratelimit
-    vcs:     git
-  - package: github.com/ghodss/yaml
-    ref:     73d445a93680fa1a78ae23a5839bad48f32ba1ee
-    repo:    http://github.com/ghodss/yaml
     vcs:     git
   - package: github.com/beorn7/perks
     ref:     b965b613227fddccbfffe13eae360ed3fa822f8d
@@ -20,101 +70,69 @@ import:
     vcs:     git
     subpackages:
       - /quantile
-  - package: github.com/prometheus/client_model
-    ref:     fa8ad6fec33561be4280a8f0514318c79d7f6cb6
-    repo:    http://github.com/prometheus/client_model
+  - package: github.com/prometheus/procfs
+    ref:     454a56f35412459b5e684fd5ec0f9211b94f002a
+    repo:    http://github.com/prometheus/procfs
     vcs:     git
-    subpackages:
-      - /go
-  - package: github.com/google/cadvisor
-    ref:     ccd829266b40207a8e41aee84214229a19300faf
-    repo:    http://github.com/google/cadvisor
-    vcs:     git
-    subpackages:
-      - /info/v1
-  - package: github.com/spf13/pflag
-    ref:     08b1a584251b5b62f458943640fc8ebd4d50aaa5
-    repo:    http://github.com/spf13/pflag
-    vcs:     git
-  - package: github.com/hashicorp/go-getter
-  - package: speter.net/go/exp/math/dec/inf
-    ref:     42ca6cd68aa922bc3f32f1e056e61b65945d9ad7
-    repo:    https://code.google.com/p/go-decimal-inf.exp
-    vcs:     git
-  - package: github.com/golang/glog
-    ref:     fca8c8854093a154ff1eb580aae10276ad6b1b5f
-    repo:    http://github.com/golang/glog
-    vcs:     git
-  - package: github.com/matttproud/golang_protobuf_extensions
-    ref:     d0c3fe89de86839aecf2e0579c40ba3bb336a453
-    repo:    http://github.com/matttproud/golang_protobuf_extensions
-    vcs:     git
-    subpackages:
-      - /pbutil
-  - package: github.com/hashicorp/errwrap
-  - package: github.com/davecgh/go-spew
-    ref:     2df174808ee097f90d259e432cc04442cf60be21
-    repo:    http://github.com/davecgh/go-spew
-    vcs:     git
-    subpackages:
-      - /spew
-  - package: github.com/prometheus/client_golang
-    ref:     e51041b3fa41cece0dca035740ba6411905be473
-    repo:    http://github.com/prometheus/client_golang
-    vcs:     git
-    subpackages:
-      - /prometheus
-  - package: github.com/hashicorp/hcl
-  - package: github.com/hashicorp/terraform
-    ref:     932f0ddbeb598531f96ab2b7c29c87e6bb46cdef
+  - package: github.com/hashicorp/yamux
+    ref:     ddcd0a6ec7c55e29f235e27935bf98d302281bd3
+  - package: github.com/mitchellh/reflectwalk
+    ref:     eecf4c70c626c7cfbb95c90195bc34d386c74ac6
   - package: code.google.com/p/go-uuid
     ref:     ed3ca8a15a931b141440a7e98e4f716eec255f7d
     repo:    https://github.com/pborman/uuid
     vcs:     git
     subpackages:
       - /uuid
-  - package: github.com/ugorji/go
-    ref:     8a2a3a8c488c3ebd98f422a965260278267a0551
-    repo:    http://github.com/ugorji/go
+  - package: github.com/spf13/pflag
+    ref:     08b1a584251b5b62f458943640fc8ebd4d50aaa5
+    repo:    http://github.com/spf13/pflag
     vcs:     git
-    subpackages:
-      - /codec
-  - package: golang.org/x/net
-    ref:     42ad50856d0131521b13983610e75c16da945ae3
-    repo:    https://github.com/golang/net.git
-    vcs:     git
-    subpackages:
-      - /context
-  - package: bitbucket.org/ww/goautoneg
-    ref:     75cd24fc2f2c2a2088577d12123ddee5f54e0675
-    repo:    https://bitbucket.org/ww/goautoneg
-    vcs:     hg
   - package: golang.org/x/crypto
     ref:     c8b9e6388ef638d5a8a9d865c634befdc46a6784
     repo:    https://github.com/golang/crypto.git
     vcs:     git
     subpackages:
       - /ssh
-  - package: github.com/mitchellh/go-homedir
-  - package: github.com/hashicorp/go-multierror
-  - package: github.com/google/gofuzz
-    ref:     e4af62d086c303f2bed467b227fc0a034b218916
-    repo:    http://github.com/google/gofuzz
-    vcs:     git
-  - package: k8s.io/kubernetes
-    ref:     f10e6d13a6a5baacc71f82320c2c5a100e9b5111
-    repo:    https://github.com/kubernetes/kubernetes.git
-    vcs:     git
-  - package: github.com/prometheus/common
-    ref:     ffe929a3f4c4faeaa10f2b9535c2b1be3ad15650
-    repo:    http://github.com/prometheus/common
+  - package: github.com/ugorji/go
+    ref:     8a2a3a8c488c3ebd98f422a965260278267a0551
+    repo:    http://github.com/ugorji/go
     vcs:     git
     subpackages:
-      - /expfmt
-  - package: github.com/hashicorp/yamux
-  - package: github.com/prometheus/procfs
-    ref:     454a56f35412459b5e684fd5ec0f9211b94f002a
-    repo:    http://github.com/prometheus/procfs
+      - /codec
+  - package: github.com/davecgh/go-spew
+    ref:     2df174808ee097f90d259e432cc04442cf60be21
+    repo:    http://github.com/davecgh/go-spew
     vcs:     git
+    subpackages:
+      - /spew
+  - package: github.com/aws/aws-sdk-go
+    ref:     4944a94a3b092d1dad8a964415700a70f55e580a
+  - package: speter.net/go/exp/math/dec/inf
+    ref:     42ca6cd68aa922bc3f32f1e056e61b65945d9ad7
+    repo:    https://code.google.com/p/go-decimal-inf.exp
+    vcs:     git
+  - package: golang.org/x/net
+    ref:     42ad50856d0131521b13983610e75c16da945ae3
+    repo:    https://github.com/golang/net.git
+    vcs:     git
+    subpackages:
+      - /context
+  - package: github.com/hashicorp/hcl
+    ref:     4de51957ef8d4aba6e285ddfc587633bbfc7c0e8
+  - package: github.com/vaughan0/go-ini
+    ref:     a98ad7ee00ec53921f08832bc06ecf7fd600e6a1
+  - package: github.com/hashicorp/go-getter
+    ref:     8709e192bfbd597ec226929c9e0927143367af6e
+  - package: github.com/google/cadvisor
+    ref:     ccd829266b40207a8e41aee84214229a19300faf
+    repo:    http://github.com/google/cadvisor
+    vcs:     git
+    subpackages:
+      - /info/v1
   - package: github.com/mitchellh/copystructure
-  - package: github.com/mitchellh/reflectwalk
+    ref:     6fc66267e9da7d155a9d3bd489e00dad02666dc6
+  - package: github.com/golang/glog
+    ref:     fca8c8854093a154ff1eb580aae10276ad6b1b5f
+    repo:    http://github.com/golang/glog
+    vcs:     git
