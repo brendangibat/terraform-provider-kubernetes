@@ -20,16 +20,19 @@ func Provider() terraform.ResourceProvider {
 			"user": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
+				Default: "",
 			},
 
 			"password": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
+				Default: "",
 			},
 
 			"version": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
+				Default: "v1",
 			},
 		},
 
