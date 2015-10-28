@@ -78,9 +78,6 @@ func buildPodSpec(podSpecs []interface{}) api.PodSpec {
 		Containers : buildContainers(userPodSpec["containers"].([]interface{})),
 	}
 
-	if _,ok := userPodSpec["resource_version"]; ok {
-		podSpec.RestartPolicy = api.RestartPolicy(userPodSpec["resource_version"].(string))
-	}
 	if _,ok := userPodSpec["node_selector"]; ok {
 		podSpec.NodeSelector = convertMapTypeToStringMap(userPodSpec["node_selector"].(map[string]interface{}))
 	}
@@ -94,15 +91,15 @@ func buildPodSpec(podSpecs []interface{}) api.PodSpec {
 		podSpec.HostNetwork = userPodSpec["host_network"].(bool)
 	}
 	if _,ok := userPodSpec["termination_grace_period"]; ok {
-		helper := userPodSpec["termination_grace_period"].(int64)
+		helper := int64(userPodSpec["termination_grace_period"].(int))
 		podSpec.TerminationGracePeriodSeconds = &helper
 	}
 	if _,ok := userPodSpec["active_deadline_seconds"]; ok {
-		helper := userPodSpec["active_deadline_seconds"].(int64)
+		helper := int64(userPodSpec["active_deadline_seconds"].(int))
 		podSpec.ActiveDeadlineSeconds = &helper
 	}
 	if _,ok := userPodSpec["restart_policy"]; ok {
-		podSpec.RestartPolicy = userPodSpec["restart_policy"].(api.RestartPolicy)
+		podSpec.RestartPolicy = api.RestartPolicy(userPodSpec["restart_policy"].(string))
 	}
 
 	return podSpec

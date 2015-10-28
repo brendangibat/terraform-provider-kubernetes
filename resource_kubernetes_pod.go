@@ -11,14 +11,12 @@ func resourceUnitPodTemplateSpec() *schema.Resource {
 			"metadata": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				ForceNew: true,
 				Elem:     resourceUnitMetadata(),
 			},
 
 			"spec": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				ForceNew: true,
 				Elem:     resourceUnitPodSpec(),
 			},
 		},
@@ -39,13 +37,11 @@ func resourceUnitPodSpec() *schema.Resource {
 			"node_selector": &schema.Schema{
 				Type:     schema.TypeMap,
 				Optional: true,
-				ForceNew: true,
 			},
 
 			"node_name": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				ForceNew: true,
 			},
 
 			"service_account_name": &schema.Schema{
@@ -64,19 +60,18 @@ func resourceUnitPodSpec() *schema.Resource {
 			"termination_grace_period": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				ForceNew: true,
+				Default: 1,
 			},
 
 			"active_deadline_seconds": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				ForceNew: true,
+				Default: 1,
 			},
 
 			"restart_policy": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				ForceNew: true,
 			},
 		},
 	}

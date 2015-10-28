@@ -33,7 +33,7 @@ func (c *Config) Client() (*KubeProviderClient, error) {
 	kubeProClient := &KubeProviderClient{}
 	kubeConfig := &client.Config{
 		Host:    c.Endpoint,
-		Version: "v1",
+		Version: c.Version,
 	}
 
 	if len(c.User) > 0 {

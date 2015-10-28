@@ -10,13 +10,11 @@ func resourceUnitMetadata() *schema.Resource {
 			"name": &schema.Schema{
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: true,
 			},
 
 			"labels": &schema.Schema{
 				Type:     schema.TypeMap,
 				Optional: true,
-				ForceNew: true,
 			},
 
 			"uid": &schema.Schema{
@@ -33,7 +31,6 @@ func resourceUnitMetadata() *schema.Resource {
 			"resource_version": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				ForceNew: true,
 			},
 
 			"creation_timestamp": &schema.Schema{

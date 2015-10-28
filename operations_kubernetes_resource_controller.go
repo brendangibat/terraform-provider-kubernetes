@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"encoding/json"
 
 	"github.com/hashicorp/terraform/helper/schema"
 	"k8s.io/kubernetes/pkg/api"
@@ -14,20 +13,10 @@ func resourceKubernetesReplicationControllerCreate(d *schema.ResourceData, meta 
 
 	kubeClient := meta.(*KubeProviderClient)
 
+	rc := buildReplicationController(d, kubeClient.Version)
+
 	kubeRepControllers := kubeClient.KubeClient.ReplicationControllers(kubeClient.Namespace)
-
-	rc := api.ReplicationController{}
-
-	err := json.Unmarshal([]byte(d.Get("config").(string)), &rc)
-	if err != nil {
-		return err
-	}
-
-	rc.APIVersion = kubeClient.Version
-	rc.Kind = "ReplicationController"
-	rc.ObjectMeta.Name = d.Get("name").(string)
-
-	rcCreate,errCreate := kubeRepControllers.Create(&rc)
+	rcCreate,errCreate := kubeRepControllers.Create(rc)
 
 	if errCreate != nil {
 		return errCreate
@@ -41,10 +30,9 @@ func resourceKubernetesReplicationControllerRead(d *schema.ResourceData, meta in
 	log.Printf("[DEBUG] resourceKubernetesReplicationControllerRead")
 
 	kubeClient := meta.(*KubeProviderClient)
-
 	kubeRepControllers := kubeClient.KubeClient.ReplicationControllers(kubeClient.Namespace)
 
-	rc,err := kubeRepControllers.Get(d.Id())
+	_,err := kubeRepControllers.Get(d.Id())
 
 	if err != nil {
 		switch err.(type) {
@@ -57,12 +45,7 @@ func resourceKubernetesReplicationControllerRead(d *schema.ResourceData, meta in
 		return err
 	}
 
-	serializedRepController, err := json.Marshal(rc)
-	if err != nil {
-		return err
-	}
-
-	d.Set("config", serializedRepController)
+	//TODO: populate resourcedata with rc response
 
 	return nil
 }
@@ -72,20 +55,10 @@ func resourceKubernetesReplicationControllerUpdate(d *schema.ResourceData, meta 
 
 	kubeClient := meta.(*KubeProviderClient)
 
+	rc := buildReplicationController(d, kubeClient.Version)
+
 	kubeRepControllers := kubeClient.KubeClient.ReplicationControllers(kubeClient.Namespace)
-
-	rc := api.ReplicationController{}
-
-	err := json.Unmarshal([]byte(d.Get("config").(string)), &rc)
-	if err != nil {
-		return err
-	}
-
-	rc.APIVersion = kubeClient.Version
-	rc.Kind = "ReplicationController"
-	rc.ObjectMeta.Name = d.Get("name").(string)
-
-	updatedRepController,updateErr := kubeRepControllers.Update(&rc)
+	updatedRepController,updateErr := kubeRepControllers.Update(rc)
 
 	if updateErr != nil {
 		return updateErr

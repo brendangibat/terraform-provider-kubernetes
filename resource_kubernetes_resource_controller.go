@@ -31,20 +31,17 @@ func resourceUnitReplicationControllerSpec() *schema.Resource {
 			"replicas": &schema.Schema{
 				Type:     schema.TypeInt,
 				Required: true,
-				ForceNew: true,
 			},
 
 			"template": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				ForceNew: true,
 				Elem:     resourceUnitPodTemplateSpec(),
 			},
 
 			"selector": &schema.Schema{
 				Type:     schema.TypeMap,
 				Required: true,
-				ForceNew: true,
 			},
 		},
 	}

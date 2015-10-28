@@ -17,7 +17,6 @@ func resourceUnitContainer() *schema.Resource {
 			"name": &schema.Schema{
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: true,
 			},
 
 			"args": &schema.Schema{
@@ -41,7 +40,6 @@ func resourceUnitContainer() *schema.Resource {
 			"working_dir": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				ForceNew: true,
 			},
 
 			"ports": &schema.Schema{
@@ -67,7 +65,6 @@ func resourceUnitContainerPort() *schema.Resource {
 			"name": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				ForceNew: true,
 			},
 
 			"host_port": &schema.Schema{
@@ -103,13 +100,11 @@ func resourceUnitEnvVar() *schema.Resource {
 			"name": &schema.Schema{
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: true,
 			},
 
 			"value": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				ForceNew: true,
 			},
 		},
 	}
