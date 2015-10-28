@@ -2,6 +2,8 @@
 
 Currently supports pushing serialized JSON to kubernetes of :
  * Replication Controllers
+
+Coming soon:
  * Services
  * Pods
 
