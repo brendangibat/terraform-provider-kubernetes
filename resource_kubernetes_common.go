@@ -10,6 +10,7 @@ func resourceUnitMetadata() *schema.Resource {
 			"name": &schema.Schema{
 				Type:     schema.TypeString,
 				Required: true,
+				ForceNew: true,
 			},
 
 			"labels": &schema.Schema{
