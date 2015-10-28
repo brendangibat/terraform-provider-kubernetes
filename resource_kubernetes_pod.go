@@ -60,13 +60,11 @@ func resourceUnitPodSpec() *schema.Resource {
 			"termination_grace_period": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Default: 1,
 			},
 
 			"active_deadline_seconds": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Default: 1,
 			},
 
 			"restart_policy": &schema.Schema{

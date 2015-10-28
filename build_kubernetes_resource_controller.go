@@ -1,6 +1,8 @@
 package main
 
 import (
+	"log"
+
 	"github.com/hashicorp/terraform/helper/schema"
 	"k8s.io/kubernetes/pkg/api"
 )
@@ -76,6 +78,8 @@ func buildPodSpec(podSpecs []interface{}) api.PodSpec {
 
 	podSpec := api.PodSpec{
 		Containers : buildContainers(userPodSpec["containers"].([]interface{})),
+		ActiveDeadlineSeconds : nil,
+		TerminationGracePeriodSeconds: nil,
 	}
 
 	if _,ok := userPodSpec["node_selector"]; ok {
@@ -93,10 +97,23 @@ func buildPodSpec(podSpecs []interface{}) api.PodSpec {
 	if _,ok := userPodSpec["termination_grace_period"]; ok {
 		helper := int64(userPodSpec["termination_grace_period"].(int))
 		podSpec.TerminationGracePeriodSeconds = &helper
+		if helper > 0 {
+			podSpec.TerminationGracePeriodSeconds = &helper
+		} else {
+			podSpec.TerminationGracePeriodSeconds = nil
+		}
+	} else {
+		podSpec.TerminationGracePeriodSeconds = nil
 	}
 	if _,ok := userPodSpec["active_deadline_seconds"]; ok {
 		helper := int64(userPodSpec["active_deadline_seconds"].(int))
-		podSpec.ActiveDeadlineSeconds = &helper
+		if helper > 0 {
+			podSpec.ActiveDeadlineSeconds = &helper
+		} else {
+			podSpec.ActiveDeadlineSeconds = nil
+		}
+	} else {
+		podSpec.ActiveDeadlineSeconds = nil
 	}
 	if _,ok := userPodSpec["restart_policy"]; ok {
 		podSpec.RestartPolicy = api.RestartPolicy(userPodSpec["restart_policy"].(string))
@@ -187,6 +204,7 @@ func buildEnvVar(userEnvVars []interface{}) []api.EnvVar {
 		}
 
 		if _,ok := userEnvVar["value"]; ok {
+			log.Printf("envvar value : %s", userEnvVar["value"].(string))
 			envVar.Value = userEnvVar["value"].(string)
 		}
 
