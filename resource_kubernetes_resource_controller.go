@@ -14,13 +14,11 @@ func resourceKubernetesReplicationController() *schema.Resource {
 			"spec": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				ForceNew: true,
 				Elem:     resourceUnitReplicationControllerSpec(),
 			},
 			"metadata": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				ForceNew: true,
 				Elem:     resourceUnitMetadata(),
 			},
 		},
