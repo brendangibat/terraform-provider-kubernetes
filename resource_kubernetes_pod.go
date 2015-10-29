@@ -4,6 +4,27 @@ import (
 	"github.com/hashicorp/terraform/helper/schema"
 )
 
+func resourceKubernetesPod() *schema.Resource {
+	return &schema.Resource{
+		Create: resourceKubernetesPodCreate,
+		Read:   resourceKubernetesPodRead,
+		Update: resourceKubernetesPodUpdate,
+		Delete: resourceKubernetesPodDelete,
+		Schema: map[string]*schema.Schema{
+			"spec": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem:     resourceUnitPodSpec(),
+			},
+			"metadata": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem:     resourceUnitMetadata(),
+			},
+		},
+	}
+}
+
 func resourceUnitPodTemplateSpec() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
@@ -53,7 +74,7 @@ func resourceUnitPodSpec() *schema.Resource {
 			"host_network": &schema.Schema{
 				Type:     schema.TypeBool,
 				Optional: true,
-				Default: false,
+				Default:  false,
 				ForceNew: true,
 			},
 

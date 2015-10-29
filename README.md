@@ -2,10 +2,10 @@
 
 Currently supports pushing serialized JSON to kubernetes of :
  * Replication Controllers
+ * Pods
 
 Coming soon:
  * Services
- * Pods
 
 Operations supported:
  * Create
@@ -22,6 +22,21 @@ provider "kubernetes" {
     endpoint = "http://kube.domain.test:8080"
 }
 
+resource "kubernetes_pod" "blog-example" {
+  spec {
+    containers {
+      image = "quay.io/kelcecil/kelcecil-com"
+      name = "blog"
+    }
+  }
+  metadata {
+    labels {
+      name = "blog"
+      region = "us-east-1"
+    }
+    name = "blog"
+  }
+}
 
 resource "kubernetes_replication_controller" "logstash-test" {
     spec {

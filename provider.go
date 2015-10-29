@@ -20,24 +20,25 @@ func Provider() terraform.ResourceProvider {
 			"user": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Default: "",
+				Default:  "",
 			},
 
 			"password": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Default: "",
+				Default:  "",
 			},
 
 			"version": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Default: "v1",
+				Default:  "v1",
 			},
 		},
 
 		ResourcesMap: map[string]*schema.Resource{
 			"kubernetes_replication_controller": resourceKubernetesReplicationController(),
+			"kubernetes_pod":                    resourceKubernetesPod(),
 		},
 
 		ConfigureFunc: providerConfigure,
