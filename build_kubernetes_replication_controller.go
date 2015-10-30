@@ -10,7 +10,7 @@ import (
 func buildReplicationController(d *schema.ResourceData, version string) *api.ReplicationController {
 
 	rc := &api.ReplicationController{
-		Spec : buildReplicationControllerSpec(d.Get("spec").([]interface{})),
+		Spec: buildReplicationControllerSpec(d.Get("spec").([]interface{})),
 	}
 
 	rc.Kind = "ReplicationController"
@@ -28,9 +28,9 @@ func buildReplicationControllerSpec(specs []interface{}) api.ReplicationControll
 	spec := specs[0].(map[string]interface{})
 
 	return api.ReplicationControllerSpec{
-		Replicas : spec["replicas"].(int),
-		Selector : convertMapTypeToStringMap(spec["selector"].(map[string]interface{})),
-		Template : buildPodTemplateSpec(spec["template"].([]interface{})),
+		Replicas: spec["replicas"].(int),
+		Selector: convertMapTypeToStringMap(spec["selector"].(map[string]interface{})),
+		Template: buildPodTemplateSpec(spec["template"].([]interface{})),
 	}
 }
 
@@ -46,10 +46,10 @@ func populateMetadata(obj *api.ObjectMeta, metadatas []interface{}) {
 	if _, ok := metadata["namespace"]; ok {
 		obj.Namespace = metadata["namespace"].(string)
 	}
-	if _,ok := metadata["resource_version"]; ok {
+	if _, ok := metadata["resource_version"]; ok {
 		obj.ResourceVersion = metadata["resource_version"].(string)
 	}
-	if _,ok := metadata["labels"]; ok {
+	if _, ok := metadata["labels"]; ok {
 		obj.Labels = convertMapTypeToStringMap(metadata["labels"].(map[string]interface{}))
 	}
 }
@@ -61,65 +61,12 @@ func buildPodTemplateSpec(templates []interface{}) *api.PodTemplateSpec {
 	template := templates[0].(map[string]interface{})
 
 	pts := &api.PodTemplateSpec{
-		Spec : buildPodSpec(template["spec"].([]interface{})),
+		Spec: buildPodSpec(template["spec"].([]interface{})),
 	}
 
 	populateMetadata(&pts.ObjectMeta, template["metadata"].([]interface{}))
 
 	return pts
-}
-
-
-func buildPodSpec(podSpecs []interface{}) api.PodSpec {
-	if len(podSpecs) == 0 {
-		return api.PodSpec{}
-	}
-	userPodSpec := podSpecs[0].(map[string]interface{})
-
-	podSpec := api.PodSpec{
-		Containers : buildContainers(userPodSpec["containers"].([]interface{})),
-		ActiveDeadlineSeconds : nil,
-		TerminationGracePeriodSeconds: nil,
-	}
-
-	if _,ok := userPodSpec["node_selector"]; ok {
-		podSpec.NodeSelector = convertMapTypeToStringMap(userPodSpec["node_selector"].(map[string]interface{}))
-	}
-	if _,ok := userPodSpec["node_name"]; ok {
-		podSpec.NodeName = userPodSpec["node_name"].(string)
-	}
-	if _,ok := userPodSpec["service_account_name"]; ok {
-		podSpec.ServiceAccountName = userPodSpec["service_account_name"].(string)
-	}
-	if _,ok := userPodSpec["host_network"]; ok {
-		podSpec.HostNetwork = userPodSpec["host_network"].(bool)
-	}
-	if _,ok := userPodSpec["termination_grace_period"]; ok {
-		helper := int64(userPodSpec["termination_grace_period"].(int))
-		podSpec.TerminationGracePeriodSeconds = &helper
-		if helper > 0 {
-			podSpec.TerminationGracePeriodSeconds = &helper
-		} else {
-			podSpec.TerminationGracePeriodSeconds = nil
-		}
-	} else {
-		podSpec.TerminationGracePeriodSeconds = nil
-	}
-	if _,ok := userPodSpec["active_deadline_seconds"]; ok {
-		helper := int64(userPodSpec["active_deadline_seconds"].(int))
-		if helper > 0 {
-			podSpec.ActiveDeadlineSeconds = &helper
-		} else {
-			podSpec.ActiveDeadlineSeconds = nil
-		}
-	} else {
-		podSpec.ActiveDeadlineSeconds = nil
-	}
-	if _,ok := userPodSpec["restart_policy"]; ok {
-		podSpec.RestartPolicy = api.RestartPolicy(userPodSpec["restart_policy"].(string))
-	}
-
-	return podSpec
 }
 
 func buildContainers(userContainers []interface{}) []api.Container {
@@ -129,26 +76,26 @@ func buildContainers(userContainers []interface{}) []api.Container {
 
 	var containers []api.Container
 
-	for _,c := range userContainers {
+	for _, c := range userContainers {
 		userContainer := c.(map[string]interface{})
 		container := api.Container{
-			Image : userContainer["image"].(string),
-			Name : userContainer["name"].(string),
+			Image: userContainer["image"].(string),
+			Name:  userContainer["name"].(string),
 		}
 
-		if _,ok := userContainer["args"]; ok {
+		if _, ok := userContainer["args"]; ok {
 			container.Args = convertListToStringArray(userContainer["args"].([]interface{}))
 		}
-		if _,ok := userContainer["command"]; ok {
+		if _, ok := userContainer["command"]; ok {
 			container.Command = convertListToStringArray(userContainer["command"].([]interface{}))
 		}
-		if _,ok := userContainer["working_dir"]; ok {
+		if _, ok := userContainer["working_dir"]; ok {
 			container.WorkingDir = userContainer["working_dir"].(string)
 		}
-		if _,ok := userContainer["ports"]; ok {
+		if _, ok := userContainer["ports"]; ok {
 			container.Ports = buildContainerPorts(userContainer["ports"].([]interface{}))
 		}
-		if _,ok := userContainer["env"]; ok {
+		if _, ok := userContainer["env"]; ok {
 			container.Env = buildEnvVar(userContainer["env"].([]interface{}))
 		}
 		containers = append(containers, container)
@@ -168,19 +115,19 @@ func buildContainerPorts(userPorts []interface{}) []api.ContainerPort {
 		userPort := p.(map[string]interface{})
 
 		port := api.ContainerPort{
-			ContainerPort : userPort["container_port"].(int),
+			ContainerPort: userPort["container_port"].(int),
 		}
 
-		if _,ok := userPort["host_port"]; ok {
+		if _, ok := userPort["host_port"]; ok {
 			port.HostPort = userPort["host_port"].(int)
 		}
-		if _,ok := userPort["name"]; ok {
+		if _, ok := userPort["name"]; ok {
 			port.Name = userPort["name"].(string)
 		}
-		if _,ok := userPort["protocol"]; ok {
+		if _, ok := userPort["protocol"]; ok {
 			port.Protocol = api.Protocol(userPort["protocol"].(string))
 		}
-		if _,ok := userPort["host_ip"]; ok {
+		if _, ok := userPort["host_ip"]; ok {
 			port.HostIP = userPort["host_ip"].(string)
 		}
 
@@ -200,10 +147,10 @@ func buildEnvVar(userEnvVars []interface{}) []api.EnvVar {
 		userEnvVar := e.(map[string]interface{})
 
 		envVar := api.EnvVar{
-			Name : userEnvVar["name"].(string),
+			Name: userEnvVar["name"].(string),
 		}
 
-		if _,ok := userEnvVar["value"]; ok {
+		if _, ok := userEnvVar["value"]; ok {
 			log.Printf("envvar value : %s", userEnvVar["value"].(string))
 			envVar.Value = userEnvVar["value"].(string)
 		}
@@ -218,7 +165,7 @@ func convertListToStringArray(list []interface{}) []string {
 		return nil
 	}
 	ret := make([]string, len(list))
-	for po,val := range list {
+	for po, val := range list {
 		ret[po] = val.(string)
 	}
 	return ret
@@ -226,7 +173,7 @@ func convertListToStringArray(list []interface{}) []string {
 
 func convertMapTypeToStringMap(userConfig map[string]interface{}) map[string]string {
 	config := make(map[string]string)
-	for k,v := range userConfig {
+	for k, v := range userConfig {
 		config[k] = v.(string)
 	}
 	return config
