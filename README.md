@@ -36,37 +36,35 @@ resource "kubernetes_pod" "blog-example" {
     }
     name = "blog"
   }
-}
 
-resource "kubernetes_replication_controller" "logstash-test" {
+resource "kubernetes_replication_controller" "rc-service-example" {
     spec {
       replicas = 2
       template {
         spec {
           containers {
-              image = "docker.moveaws.com/logstash-logging:latest"
-              args = ["-e", "input {redis {host => 'redis.test' key => 'logging' data_type => 'list' type => 'redis'}}", "-e", "output { if [options][_logging_index] {elasticsearch {hosts => [\"es.test\"] index => '%{[options][_logging_index]}-%{+YYYY.MM.dd}'}} else {elasticsearch {hosts => ['es.test'] index => 'logging-%{+YYYY.MM.dd}'}}}"]
-              name = "logstash-logging"
+              image = "quay.io/kelcecil/chucksay"
+              name = "chuck-as-a-service"
             }
         }
         metadata {
           labels {
-            "k8s-app" = "logstash-logging"
-            "name" = "logstash-logging"
+            "k8s-app" = "chucksay"
+            "name" = "chuck-as-a-service"
           }
-          "name" = "logstash-logging"
+          "name" = "chuck-as-a-service"
         }
       }
       selector {
-        "k8s-app" = "logstash-logging"
-        "name" = "logstash-logging"
+        "k8s-app" = "chucksay"
+        "name" = "chuck-as-a-service"
       }
     }
     metadata {
       labels {
-        "k8s-app" = "logstash-logging"
+        "k8s-app" = "chucksay"
       }
-      name = "logstash-logging"
+      name = "chuck-as-a-service"
     }
 }
 ```
