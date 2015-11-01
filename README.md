@@ -3,8 +3,6 @@
 Currently supports pushing serialized JSON to kubernetes of :
  * Replication Controllers
  * Pods
-
-Coming soon:
  * Services
 
 Operations supported:
@@ -36,6 +34,7 @@ resource "kubernetes_pod" "blog-example" {
     }
     name = "blog"
   }
+}
 
 resource "kubernetes_replication_controller" "rc-service-example" {
     spec {
@@ -65,6 +64,24 @@ resource "kubernetes_replication_controller" "rc-service-example" {
         "k8s-app" = "chucksay"
       }
       name = "chuck-as-a-service"
+    }
+}
+
+resource "kubernetes_service" "service-example" {
+    spec {
+      selector {
+        "app" = "MyApp"
+      }
+      ports {
+        protocol = "TCP"
+        port = 80
+      }
+    }
+    metadata {
+      labels {
+        "environment" = "dev"
+      }
+      name = "my-service"
     }
 }
 ```
