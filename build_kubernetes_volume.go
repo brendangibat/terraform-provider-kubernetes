@@ -5,27 +5,27 @@ import (
 	"k8s.io/kubernetes/pkg/api"
 )
 
-func buildVolumes(volumesSpecs []interface{}) []api.Volume {
-	volumes := make([]api.Volume, len(volumeSpecs))
-	if len(volumeSpecs) == 0 {
+func buildVolumes(userVolumes []interface{}) []api.Volume {
+	volumes := make([]api.Volume, len(userVolumes))
+	if len(userVolumes) == 0 {
 		return volumes
 	}
 
-	for volumeSpec 
-
-	pod := &api.Pod{
-		Spec: buildPodSpec(d.Get("spec").([]interface{})),
+	for index, userVolume := range userVolumes {
+		volumes[index] = buildVolume(userVolume.(map[string]interface{}))
 	}
 
-	pod.Kind = "Pod"
-	pod.APIVersion = version
-
-	populateMetadata(&pod.ObjectMeta, d.Get("metadata").([]interface{}))
-
-	return pod
+	return volumes
 }
 
-func buildVolume(volumeSpecs []interface{}) api.Volume {
+func buildVolume(userVolume map[string]interface{}) api.Volume {
+	volume := api.Volume{
+		Name:	userVolume["name"].(string),
+	}
+	volume.VolumeSource.populateVolumeSource(userVolume)
+}
+
+func (volume api.VolumeSource) populateVolumeSource(userVolumeSource map[string]interface{}) {
 
 }
 
