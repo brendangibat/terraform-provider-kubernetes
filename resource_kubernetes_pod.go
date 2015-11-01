@@ -48,6 +48,13 @@ func resourceUnitPodSpec() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 
+			"volumes": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				ForceNew: true,
+				Elem:     resourceUnitVolume(),
+			},
+
 			"containers": &schema.Schema{
 				Type:     schema.TypeList,
 				Required: true,
@@ -91,6 +98,12 @@ func resourceUnitPodSpec() *schema.Resource {
 			"restart_policy": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
+			},
+
+			"image_pull_secrets": &schema.Schema{
+				Type:     	schema.TypeList,
+				Optional: 	true,
+				Elem:		resourceUnitLocalObjectReference(),
 			},
 		},
 	}
