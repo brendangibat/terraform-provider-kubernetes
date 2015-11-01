@@ -4,9 +4,9 @@ import (
 	"github.com/hashicorp/terraform/helper/schema"
 )
 
-func (to *schema.Resource) shallowResourceSchemaMerge(from *schema.Resource) *schema.Resource {
-	for key, value := range from.Schema.(map[string]*schema.Schema) {
-		to.Schema.(map[string]*schema.Schema)[key] = value
+func shallowResourceSchemaMerge(to *schema.Resource, from *schema.Resource) *schema.Resource {
+	for key, value := range from.Schema {
+		to.Schema[key] = value
 	}
 	return to
 }
@@ -61,7 +61,7 @@ func resourceUnitLocalObjectReference() *schema.Resource {
 }
 
 func resourceUnitProbe() *schema.Resource {
-	return &schema.Resource{
+	return shallowResourceSchemaMerge(&schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"initial_delay_seconds": &schema.Schema{
 				Type:     schema.TypeInt,
@@ -73,7 +73,7 @@ func resourceUnitProbe() *schema.Resource {
 				Optional: true,
 			},
 		},
-	}.shallowResourceSchemaMerge(resourceUnitHandler())
+	}, resourceUnitHandler())
 }
 
 func resourceUnitHandler() *schema.Resource {
@@ -146,6 +146,40 @@ func resourceUnitTCPSocketAction() *schema.Resource {
 			"port": &schema.Schema{
 				Type:     schema.TypeString,
 				Required: true,
+			},
+		},
+	}
+}
+
+func resourceUnitResourceRequirements() *schema.Resource {
+	return &schema.Resource{
+		Schema: map[string]*schema.Schema{
+			"limits": &schema.Schema{
+				Type:     	schema.TypeMap,
+				Optional: 	true,
+				Elem:		resourceUnitQuantity(),
+			},
+
+			"requests": &schema.Schema{
+				Type:     	schema.TypeMap,
+				Optional: 	true,
+				Elem:		resourceUnitQuantity(),
+			},
+		},
+	}
+}
+
+func resourceUnitQuantity() *schema.Resource {
+	return &schema.Resource{
+		Schema: map[string]*schema.Schema{
+			"unscaled": &schema.Schema{
+				Type:     	schema.TypeInt,
+				Required: 	true,
+			},
+
+			"scaled": &schema.Schema{
+				Type:     	schema.TypeInt,
+				Required: 	true,
 			},
 		},
 	}

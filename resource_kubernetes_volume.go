@@ -5,17 +5,17 @@ import (
 )
 
 func resourceUnitVolume() *schema.Resource {
-	return &schema.Resource{
+	return shallowResourceSchemaMerge(&schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"name": &schema.Schema{
 				Type:     schema.TypeString,
 				Required: true,
 			},
 		},
-	}.shallowResourceSchemaMerge(resourceUnitVolumeSource())
+	}, resourceUnitVolumeSource())
 }
 
-func resourceUnitVolumeSource() *schema.VolumeSource {
+func resourceUnitVolumeSource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"host_path": &schema.Schema{
@@ -244,7 +244,7 @@ func resourceUnitISCSIVolumeSource() *schema.Resource {
 	}
 }
 
-func resourceUnitGlusterfsVolumeSource() *schema.Resource {
+func resourceUnitGlusterFSVolumeSource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"endpoints": &schema.Schema{
