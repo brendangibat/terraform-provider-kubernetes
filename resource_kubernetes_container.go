@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/hashicorp/terraform/helper/schema"
+	"k8s.io/kubernetes/pkg/api"
 )
 
 func resourceUnitContainer() *schema.Resource {
@@ -56,13 +57,6 @@ func resourceUnitContainer() *schema.Resource {
 				Elem:     resourceUnitEnvVar(),
 			},
 
-			"resources": &schema.Schema{
-				Type:     schema.TypeList,
-				Optional: true,
-				ForceNew: true,
-				Elem:     resourceUnitResourceRequirements(),
-			},
-
 			"volume_mounts": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
@@ -70,44 +64,54 @@ func resourceUnitContainer() *schema.Resource {
 				Elem:     resourceUnitVolumeMount(),
 			},
 
-			"liveness_probe": &schema.Schema{
-				Type:     schema.TypeList,
-				Optional: true,
-				ForceNew: true,
-				Elem:     resourceUnitProbe(),
-			},
-
-			"readiness_probe": &schema.Schema{
-				Type:     schema.TypeList,
-				Optional: true,
-				ForceNew: true,
-				Elem:     resourceUnitProbe(),
-			},
-
-			"lifecycle": &schema.Schema{
-				Type:     schema.TypeList,
-				Optional: true,
-				ForceNew: true,
-				Elem:     resourceUnitLifecycle(),
-			},
-
 			"termination_message_path": &schema.Schema{
-				Type:     schema.TypeString,
-				Optional: true,
+				Type:     	schema.TypeString,
+				Optional: 	true,
+				Default:	api.TerminationMessagePathDefault,
 			},
 
 			// "Always", "Never", "IfNotPresent" are valid values
 			"image_pull_policy": &schema.Schema{
-				Type:     schema.TypeString,
-				Required: true,
+				Type:     	schema.TypeString,
+				Optional: 	true,
+				Default:	"Always",
 			},
 
-			"security_context": &schema.Schema{
-				Type:     schema.TypeList,
-				Optional: true,
-				ForceNew: true,
-				Elem:     resourceUnitSecurityContext(),
-			},
+			// TODO: use these when we're ready to populate them
+			//
+			// "resources": &schema.Schema{
+			// 	Type:     schema.TypeList,
+			// 	Optional: true,
+			// 	ForceNew: true,
+			// 	Elem:     resourceUnitResourceRequirements(),
+			// },
+			//
+			// "security_context": &schema.Schema{
+			// 	Type:     schema.TypeList,
+			// 	Optional: true,
+			// 	ForceNew: true,
+			// 	Elem:     resourceUnitSecurityContext(),
+			// },
+			// "liveness_probe": &schema.Schema{
+			// 	Type:     schema.TypeList,
+			// 	Optional: true,
+			// 	ForceNew: true,
+			// 	Elem:     resourceUnitProbe(),
+			// },
+			//
+			// "readiness_probe": &schema.Schema{
+			// 	Type:     schema.TypeList,
+			// 	Optional: true,
+			// 	ForceNew: true,
+			// 	Elem:     resourceUnitProbe(),
+			// },
+			//
+			// "lifecycle": &schema.Schema{
+			// 	Type:     schema.TypeList,
+			// 	Optional: true,
+			// 	ForceNew: true,
+			// 	Elem:     resourceUnitLifecycle(),
+			// },
 		},
 	}
 }

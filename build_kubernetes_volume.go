@@ -133,3 +133,27 @@ func buildPersistentVolumeClaimVolumeSource(userPersistentVolumeClaimVolumeSourc
 
 	return persistentClaim
 }
+
+func buildVolumeMounts(userVolumeMounts []interface{}) []api.VolumeMount {
+	if len(userVolumeMounts) == 0 {
+		return nil
+	}
+
+	var volumeMounts []api.VolumeMount
+
+	for _, v := range userVolumeMounts {
+		userVolumeMount := v.(map[string]interface{})
+
+		volumeMount := api.VolumeMount{
+			Name: 		userVolumeMount["name"].(string),
+			MountPath:	userVolumeMount["mount_path"].(string),
+		}
+
+		if _, ok := userVolumeMount["read_only"]; ok {
+			volumeMount.ReadOnly = userVolumeMount["read_only"].(bool)
+		}
+
+		volumeMounts = append(volumeMounts, volumeMount)
+	}
+	return volumeMounts
+}

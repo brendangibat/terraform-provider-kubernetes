@@ -98,6 +98,26 @@ func buildContainers(userContainers []interface{}) []api.Container {
 		if _, ok := userContainer["env"]; ok {
 			container.Env = buildEnvVar(userContainer["env"].([]interface{}))
 		}
+
+		if _, ok := userContainer["volume_mounts"]; ok {
+			container.VolumeMounts = buildVolumeMounts(userContainer["volume_mounts"].([]interface{}))
+		}
+
+		if _, ok := userContainer["termination_message_path"]; ok {
+			container.TerminationMessagePath = userContainer["termination_message_path"].(string)
+		}
+
+		if _, ok := userContainer["image_pull_policy"]; ok {
+			container.ImagePullPolicy = api.PullPolicy(userContainer["image_pull_policy"].(string))
+		}
+
+// TODO: populate these fields:
+// resources
+// liveness_probe
+// readiness_probe
+// lifecycle
+// security_context
+
 		containers = append(containers, container)
 	}
 
