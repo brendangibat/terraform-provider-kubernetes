@@ -54,34 +54,10 @@ func resourceUnitVolumeSource() *schema.Resource {
 				Elem:     resourceUnitSecretVolumeSource(),
 			},
 
-			"nfs": &schema.Schema{
-				Type:     schema.TypeList,
-				Optional: true,
-				Elem:     resourceUnitNFSVolumeSource(),
-			},
-
-			"iscsi": &schema.Schema{
-				Type:     schema.TypeList,
-				Optional: true,
-				Elem:     resourceUnitISCSIVolumeSource(),
-			},
-
-			"glusterfs": &schema.Schema{
-				Type:     schema.TypeList,
-				Optional: true,
-				Elem:     resourceUnitGlusterFSVolumeSource(),
-			},
-
 			"persistent_volume_claim": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
 				Elem:     resourceUnitPersistentVolumeClaimVolumeSource(),
-			},
-
-			"rbd": &schema.Schema{
-				Type:     schema.TypeList,
-				Optional: true,
-				Elem:     resourceUnitRBDVolumeSource(),
 			},
 		},
 	}
@@ -189,7 +165,7 @@ func resourceUnitSecretVolumeSource() *schema.Resource {
 		},
 	}
 }
-
+/*
 func resourceUnitNFSVolumeSource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
@@ -319,6 +295,7 @@ func resourceUnitRBDVolumeSource() *schema.Resource {
 		},
 	}
 }
+*/
 
 func resourceUnitPersistentVolumeClaimVolumeSource() *schema.Resource {
 	return &schema.Resource{
