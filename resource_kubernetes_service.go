@@ -45,7 +45,7 @@ func resourceUnitServiceSpec() *schema.Resource {
 			},
 			"session_affinity": &schema.Schema{
 				Type:     	schema.TypeString,
-				Required: 	true,
+				Optional: 	true,
 				Default:	"None",
 			},
 		},
