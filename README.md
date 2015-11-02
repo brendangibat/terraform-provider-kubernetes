@@ -84,4 +84,16 @@ resource "kubernetes_service" "service-example" {
       name = "my-service"
     }
 }
+
+resource "kubernetes_namespace" "namespace-example" {
+    spec {
+      finalizers = ["kubernetes"]
+    }
+    metadata {
+      labels {
+        "environment" = "dev"
+      }
+      name = "dev"
+    }
+}
 ```

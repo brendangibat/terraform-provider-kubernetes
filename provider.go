@@ -40,6 +40,7 @@ func Provider() terraform.ResourceProvider {
 			"kubernetes_replication_controller": resourceKubernetesReplicationController(),
 			"kubernetes_pod":                    resourceKubernetesPod(),
 			"kubernetes_service":                resourceKubernetesService(),
+			"kubernetes_namespace":              resourceKubernetesNamespace(),
 		},
 
 		ConfigureFunc: providerConfigure,
