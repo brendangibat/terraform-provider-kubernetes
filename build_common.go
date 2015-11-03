@@ -2,7 +2,7 @@ package main
 
 import (
 	"log"
-	
+
 	"k8s.io/kubernetes/pkg/api"
 )
 
@@ -25,7 +25,7 @@ func populateMetadata(obj *api.ObjectMeta, metadatas []interface{}) {
 		obj.Labels = convertMapTypeToStringMap(metadata["labels"].(map[string]interface{}))
 	}
 	if _, ok := metadata["annotations"]; ok {
-		obj.Labels = convertMapTypeToStringMap(metadata["annotations"].(map[string]interface{}))
+		obj.Annotations = convertMapTypeToStringMap(metadata["annotations"].(map[string]interface{}))
 	}
 }
 
