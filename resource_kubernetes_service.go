@@ -57,7 +57,7 @@ func resourceUnitServicePort() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"name": &schema.Schema{
 				Type:     schema.TypeString,
-				Required: true,
+				Optional: true,
 			},
 			"protocol": &schema.Schema{
 				Type:     schema.TypeString,
