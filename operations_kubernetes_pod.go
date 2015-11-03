@@ -32,7 +32,7 @@ func resourceKubernetesPodRead(d *schema.ResourceData, meta interface{}) error {
 	kubeClient := meta.(*KubeProviderClient)
 	kubePods := kubeClient.KubeClient.Pods(kubeClient.Namespace)
 
-	_, err := kubePods.Get(d.Id())
+	pod, err := kubePods.Get(d.Id())
 
 	if err != nil {
 		switch err.(type) {
@@ -45,7 +45,7 @@ func resourceKubernetesPodRead(d *schema.ResourceData, meta interface{}) error {
 		return err
 	}
 
-	//TODO: populate resourcedata with pod response
+	updatePod(d, *pod)
 
 	return nil
 }

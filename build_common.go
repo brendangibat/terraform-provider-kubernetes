@@ -18,9 +18,6 @@ func populateMetadata(obj *api.ObjectMeta, metadatas []interface{}) {
 	if _, ok := metadata["namespace"]; ok {
 		obj.Namespace = metadata["namespace"].(string)
 	}
-	if _, ok := metadata["resource_version"]; ok {
-		obj.ResourceVersion = metadata["resource_version"].(string)
-	}
 	if _, ok := metadata["labels"]; ok {
 		obj.Labels = convertMapTypeToStringMap(metadata["labels"].(map[string]interface{}))
 	}

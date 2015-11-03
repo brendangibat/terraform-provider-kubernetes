@@ -32,7 +32,7 @@ func resourceKubernetesNamespaceRead(d *schema.ResourceData, meta interface{}) e
 	kubeClient := meta.(*KubeProviderClient)
 	kubeNamespaces := kubeClient.KubeClient.Namespaces()
 
-	_, err := kubeNamespaces.Get(d.Id())
+	namespace, err := kubeNamespaces.Get(d.Id())
 
 	if err != nil {
 		switch err.(type) {
@@ -45,7 +45,7 @@ func resourceKubernetesNamespaceRead(d *schema.ResourceData, meta interface{}) e
 		return err
 	}
 
-	//TODO: populate resourcedata with namespace response
+	updateNamespace(d, *namespace)
 
 	return nil
 }

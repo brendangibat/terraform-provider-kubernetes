@@ -33,7 +33,7 @@ func resourceKubernetesServiceRead(d *schema.ResourceData, meta interface{}) err
 	kubeClient := meta.(*KubeProviderClient)
 	kubeServices := kubeClient.KubeClient.Services(kubeClient.Namespace)
 
-	_, err := kubeServices.Get(d.Id())
+	service, err := kubeServices.Get(d.Id())
 
 	if err != nil {
 		switch err.(type) {
@@ -46,7 +46,7 @@ func resourceKubernetesServiceRead(d *schema.ResourceData, meta interface{}) err
 		return err
 	}
 
-	//TODO: populate resourcedata with service response
+	updateService(d, *service)
 
 	return nil
 }

@@ -34,7 +34,7 @@ func resourceKubernetesReplicationControllerRead(d *schema.ResourceData, meta in
 	kubeClient := meta.(*KubeProviderClient)
 	kubeRepControllers := kubeClient.KubeClient.ReplicationControllers(kubeClient.Namespace)
 
-	_,err := kubeRepControllers.Get(d.Id())
+	rc,err := kubeRepControllers.Get(d.Id())
 
 	if err != nil {
 		switch err.(type) {
@@ -47,7 +47,7 @@ func resourceKubernetesReplicationControllerRead(d *schema.ResourceData, meta in
 		return err
 	}
 
-	//TODO: populate resourcedata with rc response
+	updateReplicationController(d, *rc)
 
 	return nil
 }

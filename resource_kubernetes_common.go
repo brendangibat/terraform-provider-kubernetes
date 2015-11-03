@@ -15,14 +15,14 @@ func resourceUnitMetadata() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"name": &schema.Schema{
-				Type:     schema.TypeString,
-				Required: true,
-				ForceNew: true,
+				Type:     	schema.TypeString,
+				Required: 	true,
+				ForceNew: 	true,
 			},
 
 			"labels": &schema.Schema{
-				Type:     schema.TypeMap,
-				Optional: true,
+				Type:     	schema.TypeMap,
+				Optional: 	true,
 			},
 
 			"annotations": &schema.Schema{
@@ -31,24 +31,24 @@ func resourceUnitMetadata() *schema.Resource {
 			},
 
 			"uid": &schema.Schema{
-				Type:     schema.TypeString,
-				Computed: true,
+				Type:     	schema.TypeString,
+				Computed: 	true,
 			},
 
 			"namespace": &schema.Schema{
-				Type:     schema.TypeString,
-				Optional: true,
-				ForceNew: true,
+				Type:     	schema.TypeString,
+				Optional: 	true,
+				ForceNew: 	true,
 			},
 
 			"resource_version": &schema.Schema{
-				Type:     schema.TypeString,
-				Optional: true,
+				Type:     	schema.TypeString,
+				Computed:	true,
 			},
 
 			"creation_timestamp": &schema.Schema{
-				Type:     schema.TypeString,
-				Computed: true,
+				Type:     	schema.TypeString,
+				Computed: 	true,
 			},
 		},
 	}

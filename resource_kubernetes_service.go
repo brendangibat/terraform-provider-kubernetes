@@ -38,6 +38,7 @@ func resourceUnitServiceSpec() *schema.Resource {
 			"cluster_ip": &schema.Schema{
 				Type:     	schema.TypeString,
 				Optional: 	true,
+				Computed:	true,
 			},
 			"type": &schema.Schema{
 				Type:     	schema.TypeString,
