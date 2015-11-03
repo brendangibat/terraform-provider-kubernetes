@@ -25,6 +25,11 @@ func resourceUnitMetadata() *schema.Resource {
 				Optional: true,
 			},
 
+			"annotations": &schema.Schema{
+				Type:		schema.TypeMap,
+				Optional:	true,
+			},
+
 			"uid": &schema.Schema{
 				Type:     schema.TypeString,
 				Computed: true,
