@@ -6,13 +6,13 @@ import (
 )
 
 func updatePod(d *schema.ResourceData, pod api.Pod) {
-	if d.Get("metadata.#").(int) > 0 {
-    	updateMetadata(d.Get("metadata.0").(*schema.ResourceData), pod.ObjectMeta)
+	if len(d.Get("metadata").([]interface{})) > 0 {
+		updateMetadata(d.Get("metadata").([]interface{})[0].(map[string]interface{}), pod.ObjectMeta)
 	}
 }
 
-func updatePodTemplateSpec(d *schema.ResourceData, pts api.PodTemplateSpec) {
-	if d.Get("metadata.#").(int) > 0 {
-    	updateMetadata(d.Get("metadata.0").(*schema.ResourceData), pts.ObjectMeta)
+func updatePodTemplateSpec(d map[string]interface{}, pts api.PodTemplateSpec) {
+	if len(d["metadata"].([]interface{})) > 0 {
+		updateMetadata(d["metadata"].([]interface{})[0].(map[string]interface{}), pts.ObjectMeta)
 	}
 }

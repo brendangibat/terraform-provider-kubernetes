@@ -6,14 +6,10 @@ import (
 )
 
 func updateService(d *schema.ResourceData, service api.Service) {
-	if d.Get("spec.#").(int) > 0 {
-    	updateServiceSpec(d.Get("spec.0").(*schema.ResourceData), service.Spec)
-	}
-	if d.Get("metadata.#").(int) > 0 {
-    	updateMetadata(d.Get("metadata.0").(*schema.ResourceData), service.ObjectMeta)
-	}
+	updateServiceSpec(d.Get("spec").(map[string]interface{}), service.Spec)
+	updateMetadata(d.Get("metadata").(map[string]interface{}), service.ObjectMeta)
 }
 
-func updateServiceSpec(d *schema.ResourceData, serviceSpec api.ServiceSpec) {
-    d.Set("cluster_ip", serviceSpec.ClusterIP)
+func updateServiceSpec(d map[string]interface{}, serviceSpec api.ServiceSpec) {
+    d["cluster_ip"] = serviceSpec.ClusterIP
 }

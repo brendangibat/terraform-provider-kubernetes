@@ -1,12 +1,11 @@
 package main
 
 import (
-	"github.com/hashicorp/terraform/helper/schema"
 	"k8s.io/kubernetes/pkg/api"
 )
 
-func updateMetadata(d *schema.ResourceData, objectMeta api.ObjectMeta) {
-    d.Set("uid", string(objectMeta.UID))
-	d.Set("resource_version", objectMeta.ResourceVersion)
-	d.Set("creation_timestamp", objectMeta.CreationTimestamp.String())
+func updateMetadata(d map[string]interface{}, objectMeta api.ObjectMeta) {
+    d["uid"] = string(objectMeta.UID)
+	d["resource_version"] = objectMeta.ResourceVersion
+	d["creation_timestamp"] = objectMeta.CreationTimestamp.String()
 }

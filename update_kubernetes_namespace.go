@@ -6,7 +6,5 @@ import (
 )
 
 func updateNamespace(d *schema.ResourceData, namespace api.Namespace) {
-	if d.Get("metadata.#").(int) > 0 {
-		updateMetadata(d.Get("metadata.0").(*schema.ResourceData), namespace.ObjectMeta)
-	}
+		updateMetadata(d.Get("metadata").(map[string]interface{}), namespace.ObjectMeta)
 }
