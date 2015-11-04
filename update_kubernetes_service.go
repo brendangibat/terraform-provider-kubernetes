@@ -6,8 +6,12 @@ import (
 )
 
 func updateService(d *schema.ResourceData, service api.Service) {
-	updateServiceSpec(d.Get("spec").(map[string]interface{}), service.Spec)
-	updateMetadata(d.Get("metadata").(map[string]interface{}), service.ObjectMeta)
+	if len(d.Get("spec").([]interface{})) > 0 {
+		updateServiceSpec(d.Get("spec").([]interface{})[0].(map[string]interface{}), service.Spec)
+	}
+	if len(d.Get("metadata").([]interface{})) > 0 {
+		updateMetadata(d.Get("metadata").([]interface{})[0].(map[string]interface{}), service.ObjectMeta)
+	}
 }
 
 func updateServiceSpec(d map[string]interface{}, serviceSpec api.ServiceSpec) {
