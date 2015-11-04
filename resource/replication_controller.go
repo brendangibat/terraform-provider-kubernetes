@@ -1,31 +1,32 @@
-package main
+package resource
 
 import (
+	"github.com/brendangibat/terraform-provider-kubernetes/operations"
 	"github.com/hashicorp/terraform/helper/schema"
 )
 
-func resourceKubernetesReplicationController() *schema.Resource {
+func ReplicationController() *schema.Resource {
 	return &schema.Resource{
-		Create: resourceKubernetesReplicationControllerCreate,
-		Read:   resourceKubernetesReplicationControllerRead,
-		Update: resourceKubernetesReplicationControllerUpdate,
-		Delete: resourceKubernetesReplicationControllerDelete,
+		Create: operations.ReplicationControllerCreate,
+		Read:   operations.ReplicationControllerRead,
+		Update: operations.ReplicationControllerUpdate,
+		Delete: operations.ReplicationControllerDelete,
 		Schema: map[string]*schema.Schema{
 			"spec": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				Elem:     resourceUnitReplicationControllerSpec(),
+				Elem:     ReplicationControllerSpec(),
 			},
 			"metadata": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				Elem:     resourceUnitMetadata(),
+				Elem:     Metadata(),
 			},
 		},
 	}
 }
 
-func resourceUnitReplicationControllerSpec() *schema.Resource {
+func ReplicationControllerSpec() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"replicas": &schema.Schema{
@@ -36,7 +37,7 @@ func resourceUnitReplicationControllerSpec() *schema.Resource {
 			"template": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				Elem:     resourceUnitPodTemplateSpec(),
+				Elem:     PodTemplateSpec(),
 			},
 
 			"selector": &schema.Schema{

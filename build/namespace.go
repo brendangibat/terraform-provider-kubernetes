@@ -1,13 +1,13 @@
-package main
+package build
 
 import (
 	"github.com/hashicorp/terraform/helper/schema"
 	"k8s.io/kubernetes/pkg/api"
 )
 
-func buildNamespace(d *schema.ResourceData, version string) *api.Namespace {
+func Namespace(d *schema.ResourceData, version string) *api.Namespace {
 	namespace := &api.Namespace{
-		Spec: buildNamespaceSpec(d.Get("spec").([]interface{})),
+		Spec: NamespaceSpec(d.Get("spec").([]interface{})),
 	}
 
 	namespace.Kind = "Namespace"
@@ -18,7 +18,7 @@ func buildNamespace(d *schema.ResourceData, version string) *api.Namespace {
 	return namespace
 }
 
-func buildNamespaceSpec(namespaceSpecs []interface{}) api.NamespaceSpec {
+func NamespaceSpec(namespaceSpecs []interface{}) api.NamespaceSpec {
 	if len(namespaceSpecs) == 0 {
 		return api.NamespaceSpec{}
 	}

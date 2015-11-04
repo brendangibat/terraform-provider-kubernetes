@@ -1,13 +1,13 @@
-package main
+package build
 
 import (
 	"github.com/hashicorp/terraform/helper/schema"
 	"k8s.io/kubernetes/pkg/api"
 )
 
-func buildPod(d *schema.ResourceData, version string) *api.Pod {
+func Pod(d *schema.ResourceData, version string) *api.Pod {
 	pod := &api.Pod{
-		Spec: buildPodSpec(d.Get("spec").([]interface{})),
+		Spec: PodSpec(d.Get("spec").([]interface{})),
 	}
 
 	pod.Kind = "Pod"
@@ -18,14 +18,14 @@ func buildPod(d *schema.ResourceData, version string) *api.Pod {
 	return pod
 }
 
-func buildPodSpec(podSpecs []interface{}) api.PodSpec {
+func PodSpec(podSpecs []interface{}) api.PodSpec {
 	if len(podSpecs) == 0 {
 		return api.PodSpec{}
 	}
 	userPodSpec := podSpecs[0].(map[string]interface{})
 
 	podSpec := api.PodSpec{
-		Containers:                    buildContainers(userPodSpec["containers"].([]interface{})),
+		Containers:                    Containers(userPodSpec["containers"].([]interface{})),
 		ActiveDeadlineSeconds:         nil,
 		TerminationGracePeriodSeconds: nil,
 	}

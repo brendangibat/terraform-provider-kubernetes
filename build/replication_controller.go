@@ -1,14 +1,14 @@
-package main
+package build
 
 import (
 	"github.com/hashicorp/terraform/helper/schema"
 	"k8s.io/kubernetes/pkg/api"
 )
 
-func buildReplicationController(d *schema.ResourceData, version string) *api.ReplicationController {
+func ReplicationController(d *schema.ResourceData, version string) *api.ReplicationController {
 
 	rc := &api.ReplicationController{
-		Spec: buildReplicationControllerSpec(d.Get("spec").([]interface{})),
+		Spec: ReplicationControllerSpec(d.Get("spec").([]interface{})),
 	}
 
 	rc.Kind = "ReplicationController"
@@ -19,7 +19,7 @@ func buildReplicationController(d *schema.ResourceData, version string) *api.Rep
 	return rc
 }
 
-func buildReplicationControllerSpec(specs []interface{}) api.ReplicationControllerSpec {
+func ReplicationControllerSpec(specs []interface{}) api.ReplicationControllerSpec {
 	if len(specs) == 0 {
 		return api.ReplicationControllerSpec{}
 	}
@@ -28,18 +28,18 @@ func buildReplicationControllerSpec(specs []interface{}) api.ReplicationControll
 	return api.ReplicationControllerSpec{
 		Replicas: spec["replicas"].(int),
 		Selector: convertMapTypeToStringMap(spec["selector"].(map[string]interface{})),
-		Template: buildPodTemplateSpec(spec["template"].([]interface{})),
+		Template: PodTemplateSpec(spec["template"].([]interface{})),
 	}
 }
 
-func buildPodTemplateSpec(templates []interface{}) *api.PodTemplateSpec {
+func PodTemplateSpec(templates []interface{}) *api.PodTemplateSpec {
 	if len(templates) == 0 {
 		return nil
 	}
 	template := templates[0].(map[string]interface{})
 
 	pts := &api.PodTemplateSpec{
-		Spec: buildPodSpec(template["spec"].([]interface{})),
+		Spec: PodSpec(template["spec"].([]interface{})),
 	}
 
 	populateMetadata(&pts.ObjectMeta, template["metadata"].([]interface{}))
@@ -47,7 +47,7 @@ func buildPodTemplateSpec(templates []interface{}) *api.PodTemplateSpec {
 	return pts
 }
 
-func buildContainers(userContainers []interface{}) []api.Container {
+func Containers(userContainers []interface{}) []api.Container {
 	if len(userContainers) == 0 {
 		return nil
 	}
@@ -71,14 +71,14 @@ func buildContainers(userContainers []interface{}) []api.Container {
 			container.WorkingDir = userContainer["working_dir"].(string)
 		}
 		if _, ok := userContainer["ports"]; ok {
-			container.Ports = buildContainerPorts(userContainer["ports"].([]interface{}))
+			container.Ports = ContainerPorts(userContainer["ports"].([]interface{}))
 		}
 		if _, ok := userContainer["env"]; ok {
-			container.Env = buildEnvVar(userContainer["env"].([]interface{}))
+			container.Env = EnvVar(userContainer["env"].([]interface{}))
 		}
 
 		if _, ok := userContainer["volume_mounts"]; ok {
-			container.VolumeMounts = buildVolumeMounts(userContainer["volume_mounts"].([]interface{}))
+			container.VolumeMounts = VolumeMounts(userContainer["volume_mounts"].([]interface{}))
 		}
 
 		if _, ok := userContainer["termination_message_path"]; ok {
@@ -102,7 +102,7 @@ func buildContainers(userContainers []interface{}) []api.Container {
 	return containers
 }
 
-func buildContainerPorts(userPorts []interface{}) []api.ContainerPort {
+func ContainerPorts(userPorts []interface{}) []api.ContainerPort {
 	if len(userPorts) == 0 {
 		return nil
 	}

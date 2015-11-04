@@ -1,4 +1,4 @@
-package main
+package resource
 
 import (
 	"github.com/hashicorp/terraform/helper/schema"
@@ -11,7 +11,7 @@ func shallowResourceSchemaMerge(to *schema.Resource, from *schema.Resource) *sch
 	return to
 }
 
-func resourceUnitMetadata() *schema.Resource {
+func Metadata() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"name": &schema.Schema{
@@ -54,7 +54,7 @@ func resourceUnitMetadata() *schema.Resource {
 	}
 }
 
-func resourceUnitLocalObjectReference() *schema.Resource {
+func LocalObjectReference() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"name": &schema.Schema{
@@ -65,7 +65,7 @@ func resourceUnitLocalObjectReference() *schema.Resource {
 	}
 }
 
-func resourceUnitProbe() *schema.Resource {
+func Probe() *schema.Resource {
 	return shallowResourceSchemaMerge(&schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"initial_delay_seconds": &schema.Schema{
@@ -78,34 +78,34 @@ func resourceUnitProbe() *schema.Resource {
 				Optional: true,
 			},
 		},
-	}, resourceUnitHandler())
+	}, Handler())
 }
 
-func resourceUnitHandler() *schema.Resource {
+func Handler() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"exec": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				Elem:     resourceUnitExecAction(),
+				Elem:     ExecAction(),
 			},
 
 			"http_get": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				Elem:     resourceUnitHTTPGetAction(),
+				Elem:     HTTPGetAction(),
 			},
 
 			"tcp_socket": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				Elem:     resourceUnitTCPSocketAction(),
+				Elem:     TCPSocketAction(),
 			},
 		},
 	}
 }
 
-func resourceUnitExecAction() *schema.Resource {
+func ExecAction() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"command": &schema.Schema{
@@ -119,7 +119,7 @@ func resourceUnitExecAction() *schema.Resource {
 	}
 }
 
-func resourceUnitHTTPGetAction() *schema.Resource {
+func HTTPGetAction() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"path": &schema.Schema{
@@ -145,7 +145,7 @@ func resourceUnitHTTPGetAction() *schema.Resource {
 	}
 }
 
-func resourceUnitTCPSocketAction() *schema.Resource {
+func TCPSocketAction() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"port": &schema.Schema{
@@ -156,25 +156,25 @@ func resourceUnitTCPSocketAction() *schema.Resource {
 	}
 }
 
-func resourceUnitResourceRequirements() *schema.Resource {
+func ResourceRequirements() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"limits": &schema.Schema{
 				Type:     	schema.TypeMap,
 				Optional: 	true,
-				Elem:		resourceUnitQuantity(),
+				Elem:		Quantity(),
 			},
 
 			"requests": &schema.Schema{
 				Type:     	schema.TypeMap,
 				Optional: 	true,
-				Elem:		resourceUnitQuantity(),
+				Elem:		Quantity(),
 			},
 		},
 	}
 }
 
-func resourceUnitQuantity() *schema.Resource {
+func Quantity() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"unscaled": &schema.Schema{

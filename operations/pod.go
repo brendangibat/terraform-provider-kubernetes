@@ -1,19 +1,22 @@
-package main
+package operations
 
 import (
 	"log"
 
+	"github.com/brendangibat/terraform-provider-kubernetes/config"
+	"github.com/brendangibat/terraform-provider-kubernetes/update"
+	"github.com/brendangibat/terraform-provider-kubernetes/build"
 	"github.com/hashicorp/terraform/helper/schema"
 	"k8s.io/kubernetes/pkg/api"
 	"k8s.io/kubernetes/pkg/api/errors"
 )
 
-func resourceKubernetesPodCreate(d *schema.ResourceData, meta interface{}) error {
-	log.Printf("[DEBUG] resourceKubernetesPodCreate")
+func PodCreate(d *schema.ResourceData, meta interface{}) error {
+	log.Printf("[DEBUG] PodCreate")
 
-	kubeClient := meta.(*KubeProviderClient)
+	kubeClient := meta.(*config.KubeProviderClient)
 
-	pod := buildPod(d, kubeClient.Version)
+	pod := build.Pod(d, kubeClient.Version)
 
 	kubePods := kubeClient.KubeClient.Pods(kubeClient.Namespace)
 	podCreate, errCreate := kubePods.Create(pod)
@@ -23,13 +26,13 @@ func resourceKubernetesPodCreate(d *schema.ResourceData, meta interface{}) error
 	}
 
 	d.SetId(podCreate.ObjectMeta.Name)
-	return resourceKubernetesPodRead(d, meta)
+	return PodRead(d, meta)
 }
 
-func resourceKubernetesPodRead(d *schema.ResourceData, meta interface{}) error {
-	log.Printf("[DEBUG] resourceKubernetesPodRead")
+func PodRead(d *schema.ResourceData, meta interface{}) error {
+	log.Printf("[DEBUG] PodRead")
 
-	kubeClient := meta.(*KubeProviderClient)
+	kubeClient := meta.(*config.KubeProviderClient)
 	kubePods := kubeClient.KubeClient.Pods(kubeClient.Namespace)
 
 	pod, err := kubePods.Get(d.Id())
@@ -45,17 +48,17 @@ func resourceKubernetesPodRead(d *schema.ResourceData, meta interface{}) error {
 		return err
 	}
 
-	updatePod(d, *pod)
+	update.Pod(d, *pod)
 
 	return nil
 }
 
-func resourceKubernetesPodUpdate(d *schema.ResourceData, meta interface{}) error {
-	log.Printf("[DEBUG] resourceKubernetesPodUpdate")
+func PodUpdate(d *schema.ResourceData, meta interface{}) error {
+	log.Printf("[DEBUG] PodUpdate")
 
-	kubeClient := meta.(*KubeProviderClient)
+	kubeClient := meta.(*config.KubeProviderClient)
 
-	pod := buildPod(d, kubeClient.Version)
+	pod := build.Pod(d, kubeClient.Version)
 
 	kubePods := kubeClient.KubeClient.Pods(kubeClient.Namespace)
 	// This might have to be killed and recreated.
@@ -66,13 +69,13 @@ func resourceKubernetesPodUpdate(d *schema.ResourceData, meta interface{}) error
 	}
 
 	d.SetId(updatedPod.ObjectMeta.Name)
-	return resourceKubernetesPodRead(d, meta)
+	return PodRead(d, meta)
 }
 
-func resourceKubernetesPodDelete(d *schema.ResourceData, meta interface{}) error {
-	log.Printf("[DEBUG] resourceKubernetesPodDelete")
+func PodDelete(d *schema.ResourceData, meta interface{}) error {
+	log.Printf("[DEBUG] PodDelete")
 
-	kubeClient := meta.(*KubeProviderClient)
+	kubeClient := meta.(*config.KubeProviderClient)
 
 	kubePods := kubeClient.KubeClient.Pods(kubeClient.Namespace)
 

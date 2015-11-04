@@ -1,8 +1,11 @@
-package main
+package operations
 
 import (
 	"log"
 
+	"github.com/brendangibat/terraform-provider-kubernetes/config"
+	"github.com/brendangibat/terraform-provider-kubernetes/update"
+	"github.com/brendangibat/terraform-provider-kubernetes/build"
 	"github.com/hashicorp/terraform/helper/schema"
 	"k8s.io/kubernetes/pkg/api"
 	"k8s.io/kubernetes/pkg/api/errors"
@@ -10,12 +13,12 @@ import (
 	"k8s.io/kubernetes/pkg/fields"
 )
 
-func resourceKubernetesReplicationControllerCreate(d *schema.ResourceData, meta interface{}) error {
-	log.Printf("[DEBUG] resourceKubernetesReplicationControllerCreate")
+func ReplicationControllerCreate(d *schema.ResourceData, meta interface{}) error {
+	log.Printf("[DEBUG] ReplicationControllerCreate")
 
-	kubeClient := meta.(*KubeProviderClient)
+	kubeClient := meta.(*config.KubeProviderClient)
 
-	rc := buildReplicationController(d, kubeClient.Version)
+	rc := build.ReplicationController(d, kubeClient.Version)
 
 	kubeRepControllers := kubeClient.KubeClient.ReplicationControllers(kubeClient.Namespace)
 	rcCreate,errCreate := kubeRepControllers.Create(rc)
@@ -25,13 +28,13 @@ func resourceKubernetesReplicationControllerCreate(d *schema.ResourceData, meta 
 	}
 
 	d.SetId(rcCreate.ObjectMeta.Name)
-	return resourceKubernetesReplicationControllerRead(d, meta)
+	return ReplicationControllerRead(d, meta)
 }
 
-func resourceKubernetesReplicationControllerRead(d *schema.ResourceData, meta interface{}) error {
-	log.Printf("[DEBUG] resourceKubernetesReplicationControllerRead")
+func ReplicationControllerRead(d *schema.ResourceData, meta interface{}) error {
+	log.Printf("[DEBUG] ReplicationControllerRead")
 
-	kubeClient := meta.(*KubeProviderClient)
+	kubeClient := meta.(*config.KubeProviderClient)
 	kubeRepControllers := kubeClient.KubeClient.ReplicationControllers(kubeClient.Namespace)
 
 	rc,err := kubeRepControllers.Get(d.Id())
@@ -47,17 +50,17 @@ func resourceKubernetesReplicationControllerRead(d *schema.ResourceData, meta in
 		return err
 	}
 
-	updateReplicationController(d, *rc)
+	update.ReplicationController(d, *rc)
 
 	return nil
 }
 
-func resourceKubernetesReplicationControllerUpdate(d *schema.ResourceData, meta interface{}) error {
-	log.Printf("[DEBUG] resourceKubernetesReplicationControllerUpdate")
+func ReplicationControllerUpdate(d *schema.ResourceData, meta interface{}) error {
+	log.Printf("[DEBUG] ReplicationControllerUpdate")
 
-	kubeClient := meta.(*KubeProviderClient)
+	kubeClient := meta.(*config.KubeProviderClient)
 
-	rc := buildReplicationController(d, kubeClient.Version)
+	rc := build.ReplicationController(d, kubeClient.Version)
 
 	kubeRepControllers := kubeClient.KubeClient.ReplicationControllers(kubeClient.Namespace)
 
@@ -105,13 +108,13 @@ func resourceKubernetesReplicationControllerUpdate(d *schema.ResourceData, meta 
 	}
 
 	d.SetId(updatedRepController.ObjectMeta.Name)
-	return resourceKubernetesReplicationControllerRead(d, meta)
+	return ReplicationControllerRead(d, meta)
 }
 
-func resourceKubernetesReplicationControllerDelete(d *schema.ResourceData, meta interface{}) error {
-	log.Printf("[DEBUG] resourceKubernetesReplicationControllerDelete")
+func ReplicationControllerDelete(d *schema.ResourceData, meta interface{}) error {
+	log.Printf("[DEBUG] ReplicationControllerDelete")
 
-	kubeClient := meta.(*KubeProviderClient)
+	kubeClient := meta.(*config.KubeProviderClient)
 
 	kubeRepControllers := kubeClient.KubeClient.ReplicationControllers(kubeClient.Namespace)
 

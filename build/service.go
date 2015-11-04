@@ -1,13 +1,13 @@
-package main
+package build
 
 import (
 	"github.com/hashicorp/terraform/helper/schema"
 	"k8s.io/kubernetes/pkg/api"
 )
 
-func buildService(d *schema.ResourceData, version string) *api.Service {
+func Service(d *schema.ResourceData, version string) *api.Service {
 	srvc := &api.Service{
-		Spec: buildServiceSpec(d.Get("spec").([]interface{})),
+		Spec: ServiceSpec(d.Get("spec").([]interface{})),
 	}
 
 	srvc.Kind = "Service"
@@ -18,7 +18,7 @@ func buildService(d *schema.ResourceData, version string) *api.Service {
 	return srvc
 }
 
-func buildServiceSpec(srvcSpecs []interface{}) api.ServiceSpec {
+func ServiceSpec(srvcSpecs []interface{}) api.ServiceSpec {
 	if len(srvcSpecs) == 0 {
 		return api.ServiceSpec{}
 	}
@@ -26,7 +26,7 @@ func buildServiceSpec(srvcSpecs []interface{}) api.ServiceSpec {
 	userServiceSpec := srvcSpecs[0].(map[string]interface{})
 
 	srvcSpec := api.ServiceSpec{
-		Ports: buildServicePorts(userServiceSpec["ports"].([]interface{})),
+		Ports: ServicePorts(userServiceSpec["ports"].([]interface{})),
 	}
 
 	if _, ok := userServiceSpec["selector"]; ok {
@@ -48,7 +48,7 @@ func buildServiceSpec(srvcSpecs []interface{}) api.ServiceSpec {
 	return srvcSpec
 }
 
-func buildServicePorts(srvcPorts []interface{}) []api.ServicePort {
+func ServicePorts(srvcPorts []interface{}) []api.ServicePort {
 	if len(srvcPorts) == 0 {
 		return nil
 	}

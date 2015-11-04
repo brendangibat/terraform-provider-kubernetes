@@ -1,29 +1,32 @@
-package main
+package resource
 
-import "github.com/hashicorp/terraform/helper/schema"
+import (
+	"github.com/brendangibat/terraform-provider-kubernetes/operations"
+	"github.com/hashicorp/terraform/helper/schema"
+)
 
-func resourceKubernetesNamespace() *schema.Resource {
+func Namespace() *schema.Resource {
 	return &schema.Resource{
-		Create: resourceKubernetesNamespaceCreate,
-		Read:   resourceKubernetesNamespaceRead,
-		Update: resourceKubernetesNamespaceUpdate,
-		Delete: resourceKubernetesNamespaceDelete,
+		Create: operations.NamespaceCreate,
+		Read:   operations.NamespaceRead,
+		Update: operations.NamespaceUpdate,
+		Delete: operations.NamespaceDelete,
 		Schema: map[string]*schema.Schema{
 			"spec": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				Elem:     resourceUnitNamespaceSpec(),
+				Elem:     NamespaceSpec(),
 			},
 			"metadata": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				Elem:     resourceUnitMetadata(),
+				Elem:     Metadata(),
 			},
 		},
 	}
 }
 
-func resourceUnitNamespaceSpec() *schema.Resource {
+func NamespaceSpec() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"finalizers": &schema.Schema{

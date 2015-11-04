@@ -1,4 +1,4 @@
-package main
+package build
 
 import (
 	"log"
@@ -26,7 +26,7 @@ func populateMetadata(obj *api.ObjectMeta, metadatas []interface{}) {
 	}
 }
 
-func buildEnvVar(userEnvVars []interface{}) []api.EnvVar {
+func EnvVar(userEnvVars []interface{}) []api.EnvVar {
 	if len(userEnvVars) == 0 {
 		return nil
 	}

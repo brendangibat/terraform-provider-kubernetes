@@ -1,50 +1,51 @@
-package main
+package resource
 
 import (
+	"github.com/brendangibat/terraform-provider-kubernetes/operations"
 	"github.com/hashicorp/terraform/helper/schema"
 )
 
-func resourceKubernetesPod() *schema.Resource {
+func Pod() *schema.Resource {
 	return &schema.Resource{
-		Create: resourceKubernetesPodCreate,
-		Read:   resourceKubernetesPodRead,
-		Update: resourceKubernetesPodUpdate,
-		Delete: resourceKubernetesPodDelete,
+		Create: operations.PodCreate,
+		Read:   operations.PodRead,
+		Update: operations.PodUpdate,
+		Delete: operations.PodDelete,
 		Schema: map[string]*schema.Schema{
 			"spec": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				Elem:     resourceUnitPodSpec(),
+				Elem:     PodSpec(),
 			},
 			"metadata": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				Elem:     resourceUnitMetadata(),
+				Elem:     Metadata(),
 			},
 		},
 	}
 }
 
-func resourceUnitPodTemplateSpec() *schema.Resource {
+func PodTemplateSpec() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 
 			"metadata": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				Elem:     resourceUnitMetadata(),
+				Elem:     Metadata(),
 			},
 
 			"spec": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				Elem:     resourceUnitPodSpec(),
+				Elem:     PodSpec(),
 			},
 		},
 	}
 }
 
-func resourceUnitPodSpec() *schema.Resource {
+func PodSpec() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 
@@ -52,14 +53,14 @@ func resourceUnitPodSpec() *schema.Resource {
 				Type:     schema.TypeList,
 				Optional: true,
 				ForceNew: true,
-				Elem:     resourceUnitVolume(),
+				Elem:     Volume(),
 			},
 
 			"containers": &schema.Schema{
 				Type:     schema.TypeList,
 				Required: true,
 				ForceNew: true,
-				Elem:     resourceUnitContainer(),
+				Elem:     Container(),
 			},
 
 			"node_selector": &schema.Schema{
@@ -103,7 +104,7 @@ func resourceUnitPodSpec() *schema.Resource {
 			"image_pull_secrets": &schema.Schema{
 				Type:     	schema.TypeList,
 				Optional: 	true,
-				Elem:		resourceUnitLocalObjectReference(),
+				Elem:		LocalObjectReference(),
 			},
 		},
 	}

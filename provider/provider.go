@@ -1,8 +1,10 @@
-package main
+package provider
 
 import (
 	"log"
 
+	"github.com/brendangibat/terraform-provider-kubernetes/config"
+	"github.com/brendangibat/terraform-provider-kubernetes/resource"
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/hashicorp/terraform/terraform"
 	"github.com/mitchellh/mapstructure"
@@ -37,10 +39,10 @@ func Provider() terraform.ResourceProvider {
 		},
 
 		ResourcesMap: map[string]*schema.Resource{
-			"kubernetes_replication_controller": resourceKubernetesReplicationController(),
-			"kubernetes_pod":                    resourceKubernetesPod(),
-			"kubernetes_service":                resourceKubernetesService(),
-			"kubernetes_namespace":              resourceKubernetesNamespace(),
+			"kubernetes_replication_controller": resource.ReplicationController(),
+			"kubernetes_pod":                    resource.Pod(),
+			"kubernetes_service":                resource.Service(),
+			"kubernetes_namespace":              resource.Namespace(),
 		},
 
 		ConfigureFunc: providerConfigure,
@@ -48,7 +50,7 @@ func Provider() terraform.ResourceProvider {
 }
 
 func providerConfigure(d *schema.ResourceData) (interface{}, error) {
-	var config Config
+	var config config.Config
 	configRaw := d.Get("").(map[string]interface{})
 	if err := mapstructure.Decode(configRaw, &config); err != nil {
 		return nil, err

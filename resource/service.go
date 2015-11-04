@@ -1,35 +1,38 @@
-package main
+package resource
 
-import "github.com/hashicorp/terraform/helper/schema"
+import (
+	"github.com/brendangibat/terraform-provider-kubernetes/operations"
+	"github.com/hashicorp/terraform/helper/schema"
+)
 
-func resourceKubernetesService() *schema.Resource {
+func Service() *schema.Resource {
 	return &schema.Resource{
-		Create: resourceKubernetesServiceCreate,
-		Read:   resourceKubernetesServiceRead,
-		Update: resourceKubernetesServiceUpdate,
-		Delete: resourceKubernetesServiceDelete,
+		Create: operations.ServiceCreate,
+		Read:   operations.ServiceRead,
+		Update: operations.ServiceUpdate,
+		Delete: operations.ServiceDelete,
 		Schema: map[string]*schema.Schema{
 			"spec": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				Elem:     resourceUnitServiceSpec(),
+				Elem:     ServiceSpec(),
 			},
 			"metadata": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				Elem:     resourceUnitMetadata(),
+				Elem:     Metadata(),
 			},
 		},
 	}
 }
 
-func resourceUnitServiceSpec() *schema.Resource {
+func ServiceSpec() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"ports": &schema.Schema{
 				Type:     	schema.TypeList,
 				Required: 	true,
-				Elem:     	resourceUnitServicePort(),
+				Elem:     	ServicePort(),
 			},
 			"selector": &schema.Schema{
 				Type:     	schema.TypeMap,
@@ -53,7 +56,7 @@ func resourceUnitServiceSpec() *schema.Resource {
 	}
 }
 
-func resourceUnitServicePort() *schema.Resource {
+func ServicePort() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"name": &schema.Schema{

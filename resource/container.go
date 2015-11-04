@@ -1,11 +1,11 @@
-package main
+package resource
 
 import (
 	"github.com/hashicorp/terraform/helper/schema"
 	"k8s.io/kubernetes/pkg/api"
 )
 
-func resourceUnitContainer() *schema.Resource {
+func Container() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 
@@ -47,21 +47,21 @@ func resourceUnitContainer() *schema.Resource {
 				Type:     schema.TypeList,
 				Optional: true,
 				ForceNew: true,
-				Elem:     resourceUnitContainerPort(),
+				Elem:     ContainerPort(),
 			},
 
 			"env": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
 				ForceNew: true,
-				Elem:     resourceUnitEnvVar(),
+				Elem:     EnvVar(),
 			},
 
 			"volume_mounts": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
 				ForceNew: true,
-				Elem:     resourceUnitVolumeMount(),
+				Elem:     VolumeMount(),
 			},
 
 			"termination_message_path": &schema.Schema{
@@ -83,40 +83,40 @@ func resourceUnitContainer() *schema.Resource {
 			// 	Type:     schema.TypeList,
 			// 	Optional: true,
 			// 	ForceNew: true,
-			// 	Elem:     resourceUnitResourceRequirements(),
+			// 	Elem:     ResourceRequirements(),
 			// },
 			//
 			// "security_context": &schema.Schema{
 			// 	Type:     schema.TypeList,
 			// 	Optional: true,
 			// 	ForceNew: true,
-			// 	Elem:     resourceUnitSecurityContext(),
+			// 	Elem:     SecurityContext(),
 			// },
 			// "liveness_probe": &schema.Schema{
 			// 	Type:     schema.TypeList,
 			// 	Optional: true,
 			// 	ForceNew: true,
-			// 	Elem:     resourceUnitProbe(),
+			// 	Elem:     Probe(),
 			// },
 			//
 			// "readiness_probe": &schema.Schema{
 			// 	Type:     schema.TypeList,
 			// 	Optional: true,
 			// 	ForceNew: true,
-			// 	Elem:     resourceUnitProbe(),
+			// 	Elem:     Probe(),
 			// },
 			//
 			// "lifecycle": &schema.Schema{
 			// 	Type:     schema.TypeList,
 			// 	Optional: true,
 			// 	ForceNew: true,
-			// 	Elem:     resourceUnitLifecycle(),
+			// 	Elem:     Lifecycle(),
 			// },
 		},
 	}
 }
 
-func resourceUnitContainerPort() *schema.Resource {
+func ContainerPort() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"name": &schema.Schema{
@@ -151,7 +151,7 @@ func resourceUnitContainerPort() *schema.Resource {
 	}
 }
 
-func resourceUnitEnvVar() *schema.Resource {
+func EnvVar() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"name": &schema.Schema{
@@ -167,31 +167,31 @@ func resourceUnitEnvVar() *schema.Resource {
 	}
 }
 
-func resourceUnitLifecycle() *schema.Resource {
+func Lifecycle() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"post_start": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				Elem:     resourceUnitHandler(),
+				Elem:     Handler(),
 			},
 
 			"pre_stop": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				Elem:     resourceUnitHandler(),
+				Elem:     Handler(),
 			},
 		},
 	}
 }
 
-func resourceUnitSecurityContext() *schema.Resource {
+func SecurityContext() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"capabilities": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				Elem:     resourceUnitCapability(),
+				Elem:     Capability(),
 			},
 
 			"privileged": &schema.Schema{
@@ -203,7 +203,7 @@ func resourceUnitSecurityContext() *schema.Resource {
 			"se_linux_options": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				Elem:     resourceUnitSELinuxOptions(),
+				Elem:     SELinuxOptions(),
 			},
 
 			"run_as_user": &schema.Schema{
@@ -214,7 +214,7 @@ func resourceUnitSecurityContext() *schema.Resource {
 	}
 }
 
-func resourceUnitCapability() *schema.Resource {
+func Capability() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"add": &schema.Schema{
@@ -238,7 +238,7 @@ func resourceUnitCapability() *schema.Resource {
 	}
 }
 
-func resourceUnitSELinuxOptions() *schema.Resource {
+func SELinuxOptions() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"user": &schema.Schema{

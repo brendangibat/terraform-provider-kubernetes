@@ -1,10 +1,10 @@
-package main
+package resource
 
 import (
 	"github.com/hashicorp/terraform/helper/schema"
 )
 
-func resourceUnitVolume() *schema.Resource {
+func Volume() *schema.Resource {
 	return shallowResourceSchemaMerge(&schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"name": &schema.Schema{
@@ -12,58 +12,58 @@ func resourceUnitVolume() *schema.Resource {
 				Required: true,
 			},
 		},
-	}, resourceUnitVolumeSource())
+	}, VolumeSource())
 }
 
-func resourceUnitVolumeSource() *schema.Resource {
+func VolumeSource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"host_path": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				Elem:     resourceUnitHostPathVolumeSource(),
+				Elem:     HostPathVolumeSource(),
 			},
 
 			"empty_dir": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				Elem:     resourceUnitEmptyDirVolumeSource(),
+				Elem:     EmptyDirVolumeSource(),
 			},
 
 			"gce_persistent_disk": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				Elem:     resourceUnitGCEPersistentDiskVolumeSource(),
+				Elem:     GCEPersistentDiskVolumeSource(),
 			},
 
 			"aws_elastic_block_store": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				Elem:     resourceUnitAWSElasticBlockStoreVolumeSource(),
+				Elem:     AWSElasticBlockStoreVolumeSource(),
 			},
 
 			"git_repo": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				Elem:     resourceUnitGitRepoVolumeSource(),
+				Elem:     GitRepoVolumeSource(),
 			},
 
 			"secret": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				Elem:     resourceUnitSecretVolumeSource(),
+				Elem:     SecretVolumeSource(),
 			},
 
 			"persistent_volume_claim": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				Elem:     resourceUnitPersistentVolumeClaimVolumeSource(),
+				Elem:     PersistentVolumeClaimVolumeSource(),
 			},
 		},
 	}
 }
 
-func resourceUnitHostPathVolumeSource() *schema.Resource {
+func HostPathVolumeSource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"path": &schema.Schema{
@@ -74,7 +74,7 @@ func resourceUnitHostPathVolumeSource() *schema.Resource {
 	}
 }
 
-func resourceUnitEmptyDirVolumeSource() *schema.Resource {
+func EmptyDirVolumeSource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"medium": &schema.Schema{
@@ -85,7 +85,7 @@ func resourceUnitEmptyDirVolumeSource() *schema.Resource {
 	}
 }
 
-func resourceUnitGCEPersistentDiskVolumeSource() *schema.Resource {
+func GCEPersistentDiskVolumeSource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"pd_name": &schema.Schema{
@@ -112,7 +112,7 @@ func resourceUnitGCEPersistentDiskVolumeSource() *schema.Resource {
 	}
 }
 
-func resourceUnitAWSElasticBlockStoreVolumeSource() *schema.Resource {
+func AWSElasticBlockStoreVolumeSource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"volume_id": &schema.Schema{
@@ -139,7 +139,7 @@ func resourceUnitAWSElasticBlockStoreVolumeSource() *schema.Resource {
 	}
 }
 
-func resourceUnitGitRepoVolumeSource() *schema.Resource {
+func GitRepoVolumeSource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"repository": &schema.Schema{
@@ -155,7 +155,7 @@ func resourceUnitGitRepoVolumeSource() *schema.Resource {
 	}
 }
 
-func resourceUnitSecretVolumeSource() *schema.Resource {
+func SecretVolumeSource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"secret_name": &schema.Schema{
@@ -166,7 +166,7 @@ func resourceUnitSecretVolumeSource() *schema.Resource {
 	}
 }
 /*
-func resourceUnitNFSVolumeSource() *schema.Resource {
+func NFSVolumeSource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"server": &schema.Schema{
@@ -188,7 +188,7 @@ func resourceUnitNFSVolumeSource() *schema.Resource {
 	}
 }
 
-func resourceUnitISCSIVolumeSource() *schema.Resource {
+func ISCSIVolumeSource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"target_portal": &schema.Schema{
@@ -220,7 +220,7 @@ func resourceUnitISCSIVolumeSource() *schema.Resource {
 	}
 }
 
-func resourceUnitGlusterFSVolumeSource() *schema.Resource {
+func GlusterFSVolumeSource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"endpoints": &schema.Schema{
@@ -242,7 +242,7 @@ func resourceUnitGlusterFSVolumeSource() *schema.Resource {
 	}
 }
 
-func resourceUnitRBDVolumeSource() *schema.Resource {
+func RBDVolumeSource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"ceph_monitors": &schema.Schema{
@@ -284,7 +284,7 @@ func resourceUnitRBDVolumeSource() *schema.Resource {
 			"secret_ref": &schema.Schema{
 				Type:    	schema.TypeString,
 				Required:	true,
-				Elem:		resourceUnitLocalObjectReference(),
+				Elem:		LocalObjectReference(),
 			},
 
 			"read_only": &schema.Schema{
@@ -297,7 +297,7 @@ func resourceUnitRBDVolumeSource() *schema.Resource {
 }
 */
 
-func resourceUnitPersistentVolumeClaimVolumeSource() *schema.Resource {
+func PersistentVolumeClaimVolumeSource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"claim_name": &schema.Schema{
@@ -314,7 +314,7 @@ func resourceUnitPersistentVolumeClaimVolumeSource() *schema.Resource {
 	}
 }
 
-func resourceUnitVolumeMount() *schema.Resource {
+func VolumeMount() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"name": &schema.Schema{
