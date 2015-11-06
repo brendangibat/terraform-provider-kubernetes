@@ -22,7 +22,7 @@ func populateMetadata(obj *api.ObjectMeta, metadatas []interface{}) {
 		obj.Labels = convertMapTypeToStringMap(metadata["labels"].(map[string]interface{}))
 	}
 	if _, ok := metadata["annotations"]; ok {
-		obj.Annotations = convertMapTypeToStringMap(metadata["annotations"].(map[string]interface{}))
+		obj.Annotations = convertNameValueListToStringMap(metadata["annotations"].([]interface{}))
 	}
 }
 
