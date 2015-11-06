@@ -26,8 +26,9 @@ func Metadata() *schema.Resource {
 			},
 
 			"annotations": &schema.Schema{
-				Type:		schema.TypeMap,
+				Type:		schema.TypeList,
 				Optional:	true,
+				Elem:		NameValueMap(),
 			},
 
 			"uid": &schema.Schema{
@@ -60,6 +61,21 @@ func LocalObjectReference() *schema.Resource {
 			"name": &schema.Schema{
 				Type:     schema.TypeString,
 				Required: true,
+			},
+		},
+	}
+}
+
+func NameValueMap() *schema.Resource {
+	return &schema.Resource{
+		Schema: map[string]*schema.Schema{
+			"name": &schema.Schema{
+				Type:     schema.TypeString,
+				Required: true,
+			},
+			"value": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
 			},
 		},
 	}

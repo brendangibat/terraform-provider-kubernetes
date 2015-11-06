@@ -68,3 +68,16 @@ func convertMapTypeToStringMap(userConfig map[string]interface{}) map[string]str
 	}
 	return config
 }
+
+func convertNameValueListToStringMap(userConfig []interface{}) map[string]string {
+	config := make(map[string]string)
+	for _, userNameValuePair := range userConfig {
+		nameValue := userNameValuePair.(map[string]interface{})
+		var value string
+		if _, ok := nameValue["value"]; ok {
+			value = nameValue["value"].(string)
+		}
+		config[nameValue["name"].(string)] = value
+	}
+	return config
+}
