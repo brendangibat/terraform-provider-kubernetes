@@ -7,10 +7,14 @@ import (
 
 func Service(d *schema.ResourceData, service api.Service) {
 	if len(d.Get("spec").([]interface{})) > 0 {
-		ServiceSpec(d.Get("spec").([]interface{})[0].(map[string]interface{}), service.Spec)
+		specList := d.Get("spec").([]interface{})
+		ServiceSpec(specList[0].(map[string]interface{}), service.Spec)
+		d.Set("spec", specList)
 	}
 	if len(d.Get("metadata").([]interface{})) > 0 {
-		Metadata(d.Get("metadata").([]interface{})[0].(map[string]interface{}), service.ObjectMeta)
+		metadataList := d.Get("metadata").([]interface{})
+		Metadata(metadataList[0].(map[string]interface{}), service.ObjectMeta)
+		d.Set("metadata", metadataList)
 	}
 }
 

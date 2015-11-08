@@ -7,11 +7,15 @@ import (
 
 func ReplicationController(d *schema.ResourceData, rc api.ReplicationController) {
 	if len(d.Get("spec").([]interface{})) > 0 {
-		ReplicationControllerSpec(d.Get("spec").([]interface{})[0].(map[string]interface{}), rc.Spec)
+		specList := d.Get("spec").([]interface{})
+		ReplicationControllerSpec(specList[0].(map[string]interface{}), rc.Spec)
+		d.Set("spec", specList)
 	}
 
 	if len(d.Get("metadata").([]interface{})) > 0 {
-		Metadata(d.Get("metadata").([]interface{})[0].(map[string]interface{}), rc.ObjectMeta)
+		metadataList := d.Get("metadata").([]interface{})
+		Metadata(metadataList[0].(map[string]interface{}), rc.ObjectMeta)
+		d.Set("metadata", metadataList)
 	}
 }
 

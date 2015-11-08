@@ -7,6 +7,8 @@ import (
 
 func Namespace(d *schema.ResourceData, namespace api.Namespace) {
 	if len(d.Get("metadata").([]interface{})) > 0 {
-		Metadata(d.Get("metadata").([]interface{})[0].(map[string]interface{}), namespace.ObjectMeta)
+		metadataList := d.Get("metadata").([]interface{})
+		Metadata(metadataList[0].(map[string]interface{}), namespace.ObjectMeta)
+		d.Set("metadata", metadataList)
 	}
 }

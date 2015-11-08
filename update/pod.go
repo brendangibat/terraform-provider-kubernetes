@@ -7,7 +7,9 @@ import (
 
 func Pod(d *schema.ResourceData, pod api.Pod) {
 	if len(d.Get("metadata").([]interface{})) > 0 {
-		Metadata(d.Get("metadata").([]interface{})[0].(map[string]interface{}), pod.ObjectMeta)
+		metadataList := d.Get("metadata").([]interface{})
+		Metadata(metadataList[0].(map[string]interface{}), pod.ObjectMeta)
+		d.Set("metadata", metadataList)
 	}
 }
 
