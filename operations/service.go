@@ -56,6 +56,8 @@ func ServiceRead(d *schema.ResourceData, meta interface{}) error {
 func ServiceUpdate(d *schema.ResourceData, meta interface{}) error {
 	log.Printf("[DEBUG] ServiceUpdate")
 
+	log.Printf("resource data state: %v", d.State())
+
 	kubeClient := meta.(*config.KubeProviderClient)
 
 	srvc := build.Service(d, kubeClient.Version)

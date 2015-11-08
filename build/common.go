@@ -24,6 +24,9 @@ func populateMetadata(obj *api.ObjectMeta, metadatas []interface{}) {
 	if _, ok := metadata["annotations"]; ok {
 		obj.Annotations = convertNameValueListToStringMap(metadata["annotations"].([]interface{}))
 	}
+	if _, ok := metadata["resource_version"]; ok {
+		obj.ResourceVersion = metadata["resource_version"].(string)
+	}
 }
 
 func EnvVar(userEnvVars []interface{}) []api.EnvVar {
